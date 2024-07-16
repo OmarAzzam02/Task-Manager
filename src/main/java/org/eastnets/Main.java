@@ -1,11 +1,10 @@
 package org.eastnets;
-import org.eastnets.databaseservice.DataBaseProvider;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Main {
     public static void main(String[] args) {
-
-        DataBaseProvider db = new DataBaseProvider();
-        db.connectToDataBase();
 
     }
 }

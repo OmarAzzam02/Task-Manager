@@ -1,7 +1,11 @@
 package org.eastnets.entity;
 
-public class User {
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+
+public class User {
+    private final static Logger logger = LogManager.getLogger(User.class);
     private int userId;
     private String username;
     private String password;
@@ -14,6 +18,7 @@ public class User {
         setPassword(password);
         setEmail(email);
         setUserType(userType);
+        logger.info("User created");
     }
 
     public int getUserId() {
@@ -54,5 +59,16 @@ public class User {
 
     public void setUserType(UserType userType) {
         this.userType = userType;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", userType=" + userType +
+                '}';
     }
 }

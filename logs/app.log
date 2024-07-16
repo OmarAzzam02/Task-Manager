@@ -1,0 +1,5 @@
+2024-07-16 11:09:08.126 [main] INFO  org.eastnets.Main - Application started
+2024-07-16 11:09:08.128 [main] DEBUG org.eastnets.Main - Debugging message
+2024-07-16 11:09:08.128 [main] INFO  org.eastnets.Main - Info message
+2024-07-16 11:09:08.128 [main] ERROR org.eastnets.Main - Error message
+2024-07-16 11:09:08.128 [main] INFO  org.eastnets.Main - Application finished

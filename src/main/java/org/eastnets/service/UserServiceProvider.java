@@ -1,46 +1,58 @@
 package org.eastnets.service;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.eastnets.databaseservice.DataBaseProvider;
 import org.eastnets.entity.User;
 import org.eastnets.entity.UserType;
 
 import java.util.List;
 
-public class UserServiceProvider implements  UserService {
+public class UserServiceProvider implements UserService {
 
-
-   private final DataBaseProvider db = new DataBaseProvider();
-
-
+    private final static Logger logger = LogManager.getLogger(User.class);
+    private final DataBaseProvider db = new DataBaseProvider();
 
 
     @Override
     public User signin(String username, String password) {
-       try {
-       User user =  db.login(username, password);
-       if(user!=null) return user;
-       else  throw new Exception("Invalid username or password");
+        try {
+            logger.info("Attempting to signin user  {}", username);
+            User user = db.login(username, password);
+            logger.debug("user after signin: {}", user);
+            if (user == null)
+                logger.error("User not found", new Exception("Invalid username or password"));
 
-       }catch (Exception e){
-        System.out.println(e.getMessage());
-        return null;
-       }
+            return user;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
     @Override
     public void signup(User user) {
-        db.addUser(user);
+        try {
+            logger.info("Attempting to signup user {}", user.getUsername());
+            db.addUser(user);
+            logger.debug("user added {} ", user.getUsername());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     @Override
-    public List<User> getAllUsers(UserType userType)  {
+    public List<User> getAllUsers(UserType userType) {
         try {
-        if (userType.hasViewAllTasksAndUsersPrivlage())
-            return  db.getAllUsersFromDataBase();
+            logger.info("Attempting to get all users");
+            if (!userType.hasViewAllTasksAndUsersPrivlage())
+                logger.error("" ,new Exception("You dont have this privlage"));
 
-        throw new Exception("You dont have this privlage");
+            return db.getAllUsersFromDataBase();
 
-        }catch (Exception ex){
+
+        } catch (Exception ex) {
             System.out.println(ex.getMessage());
             return null;
         }

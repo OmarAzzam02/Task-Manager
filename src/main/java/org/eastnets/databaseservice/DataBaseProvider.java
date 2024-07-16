@@ -1,5 +1,8 @@
 package org.eastnets.databaseservice;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.codehaus.plexus.logging.LoggerManager;
 import org.eastnets.entity.UserType;
 import org.eastnets.entity.User;
 import org.eastnets.entity.Task;
@@ -8,7 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class DataBaseProvider implements DataBaseService {
-
+    private final static Logger logger = LogManager.getLogger(DataBaseProvider.class);
     private Connection connection = null;
     private PreparedStatement statement = null;
     private ResultSet resultSet = null;
@@ -27,11 +30,13 @@ public class DataBaseProvider implements DataBaseService {
 
 
         try {
-
+            logger.info("Adding user: {} To Database "  , user.toString());
             if (!isConnected())
                 connectToDataBase();
 
-            if (userExists(user.getUsername())) throw new Exception("User already exists");
+            if (userExists(user.getUsername()))
+                logger.error( "User Already exists" , new Exception("User already exists"));
+
 
             String sql = "INSERT INTO USERS (USER_ID, USERNAME, PASSWORD, EMAIL, ROLE) VALUES (users_id_seq.NEXTVAL, ?, ?, ?, ?)";
             statement = connection.prepareStatement(sql);
@@ -41,10 +46,12 @@ public class DataBaseProvider implements DataBaseService {
             statement.setString(3, user.getEmail());
             statement.setString(4, user.getUserType().name());
 
-            statement.executeUpdate();
+            if( statement.executeUpdate() <= 0 )
+                logger.error("Couldn't add user to DataBase  " , new Exception("Couldn't add user to DataBase"));
+
 
         } catch (Exception ex) {
-            System.out.println(ex.getMessage() + "   " + ex.getCause());
+            logger.error(ex.getMessage() + "   " + ex.getCause());
         }
 
 
@@ -55,16 +62,16 @@ public class DataBaseProvider implements DataBaseService {
         String username = "system";
         String password = "manager";
 
-
         try {
             // Load the Oracle JDBC driver
+            logger.info("attempting to connect to database");
             Class.forName("oracle.jdbc.OracleDriver");
 
             // Establish the connection
             connection = DriverManager.getConnection(jdbcUrl, username, password);
             System.out.println("Connected to the Oracle database successfully!");
         } catch (SQLException | ClassNotFoundException e) {
-            System.out.println("Could not connect to the Oracle database!" + e.getCause() + e.getMessage());
+            logger.error("Error in connecting to the Oracle database", e);
         }
 
     }
@@ -72,18 +79,18 @@ public class DataBaseProvider implements DataBaseService {
     public User login(String enteredUsername, String enteredPassword) {
 
         try {
-
+            logger.info("attempting to login in DB");
             String sql = "SELECT * FROM USERS WHERE USERNAME = ? AND PASSWORD = ?";
             statement = connection.prepareStatement(sql);
             statement.setString(1, enteredUsername);
             statement.setString(2, enteredPassword);
             resultSet = statement.executeQuery();
-            if (!resultSet.next()) throw new Exception("Entered wrong username or password");
-
+            if (!resultSet.next()) logger.error( "No such User"  , new Exception("Entered wrong username or password"));
+            logger.debug("user exists");
             return createUserFromResultSet(resultSet);
 
         } catch (Exception ex) {
-            System.out.println(ex.getMessage() + "   " + ex.getCause());
+           logger.error(ex.getMessage() + "   " + ex.getCause());
             return null;
         }
 
@@ -91,6 +98,9 @@ public class DataBaseProvider implements DataBaseService {
     @Override
     public void insertTask(Task task) {
         try {
+
+            logger.info("attempting to insert task in DB");
+
             if (!isConnected())
                 connectToDataBase();
 
@@ -103,20 +113,26 @@ public class DataBaseProvider implements DataBaseService {
             statement.setInt(5, task.getStatus() ? 1 : 0);
             resultSet = statement.executeQuery();
 
-            if (!resultSet.next()) throw new Exception("Something went wrong");
+            if (!resultSet.next()) logger.error(  "Error adding Task To DB " ,  new Exception("Something went wrong"));
 
             int taskId = resultSet.getInt("TASK_ID");
+
+            logger.debug("Task Created");
             assignTask(taskId, task.getAssignedTo());
 
         } catch (Exception ex) {
-            System.out.println(ex.getMessage() + "   " + ex.getCause());
+            logger.error(ex.getMessage() + "   " + ex.getCause());
         }
 
     }
     public void assignTask(int taskId, List<Integer> userId) {
 
         try {
-            if (isValidUser(userId) && isValidTask(taskId) ) throw new Exception("Error assigning task");
+            logger.info("attempting to assign task in DB");
+            if (!isValidUser(userId) || !isValidTask(taskId) )
+             logger.error( "not valid user or not a valid task "  , new Exception("Error assigning task"));
+
+            logger.debug("User and task are valid");
             int i = 0;
             while (i < userId.size()  && !isAssigned(taskId , userId.get(i))) {
 
@@ -125,13 +141,13 @@ public class DataBaseProvider implements DataBaseService {
                 statement.setInt(1, taskId);
                 statement.setInt(2, userId.get(i++));
                 int row = statement.executeUpdate();
-                if(row > 0) System.out.println("Task Assigned Successfully");
+                if(row < 0) logger.error(new Exception("Task  Not Assigned Successfully"));
 
-
+                logger.debug("Task Assigned Successfully");
             }
 
         } catch (Exception ex) {
-            System.out.println(ex.getMessage() + "   " + ex.getCause());
+            logger.error(ex.getMessage() + "   " + ex.getCause());
 
         }
 
@@ -139,7 +155,7 @@ public class DataBaseProvider implements DataBaseService {
     }
     @Override
     public void updateTask(Task task) {
-
+            logger.info("attempting to update task in DB");
             try {
                 if (!isConnected())
                     connectToDataBase();
@@ -155,10 +171,11 @@ public class DataBaseProvider implements DataBaseService {
                 int rows = statement.executeUpdate();
                 assignTask(task.getTaskId() , task.getAssignedTo());
 
-                if(rows > 0) System.out.println("Task Updated Successfully");
+                if(rows < 0) logger.error(new Exception("Task  Not Assigned Successfully"));
 
+                logger.debug("Task updated");
             }catch (Exception ex){
-                System.out.println(ex.getMessage() + "   " + ex.getCause());
+                logger.error(ex.getMessage() + "   " + ex.getCause());
 
             }
 
@@ -170,8 +187,11 @@ public class DataBaseProvider implements DataBaseService {
     public void deleteTask(Task task) {
 
         try {
+            logger.info("attempting to delete task in DB");
             if (!isConnected())
                 connectToDataBase();
+
+            if(!isValidTask(task.getTaskId())) logger.error("not a valid task" , new Exception("Not A valid task"));
 
             String sql = "DELETE FROM TASKS WHERE TASK_ID = ?";
             statement = connection.prepareStatement(sql);
@@ -179,10 +199,10 @@ public class DataBaseProvider implements DataBaseService {
 
             int rows = statement.executeUpdate();
             deleteTaskAssignment(task.getTaskId());
-            if (rows < 0) throw new Exception("Something went wrong");
-
+            if (rows < 0) logger.error( new Exception("Something went wrong"));
+            logger.debug("Task deleted");
         } catch (Exception ex) {
-            System.out.println(ex.getMessage() + "   " + ex.getCause());
+            logger.error(ex.getMessage() + "   " + ex.getCause());
         }
 
     }
@@ -222,10 +242,10 @@ public class DataBaseProvider implements DataBaseService {
             statement.setInt(1, taskId);
             int rows = statement.executeUpdate();
             if (rows < 0) throw new Exception("Something went wrong");
-            System.out.println("Task Deleted Successfully");
+            logger.error("Task Deleted Successfully");
 
         }catch (Exception ex){
-            System.out.println(ex.getMessage() + "   " + ex.getCause());
+           logger.error(ex.getMessage() + "   " + ex.getCause());
         }
     }
     private boolean isAssigned(int taskId, int userId) {
@@ -238,7 +258,7 @@ public class DataBaseProvider implements DataBaseService {
             resultSet = statement.executeQuery();
             return resultSet.next();
         }catch (Exception ex){
-            System.out.println(ex.getMessage() + "   " + ex.getCause());
+          logger.error(ex.getMessage() + "   " + ex.getCause());
             return false;
         }
     }
@@ -254,13 +274,14 @@ public class DataBaseProvider implements DataBaseService {
             if (!resultSet.next()) throw new Exception("No Such Task ");
 
         } catch (Exception ex) {
-            System.out.println(ex.getMessage() + "   " + ex.getCause());
+            logger.error(ex.getMessage() + "   " + ex.getCause());
             return false;
         }
         return true;
     }
     private boolean isValidUser(List<Integer> userId) {
 
+        logger.info("Attempting to check if user valid ");
         try {
 
             for (Integer id : userId) {
@@ -269,21 +290,27 @@ public class DataBaseProvider implements DataBaseService {
                 statement = connection.prepareStatement(sql);
                 statement.setInt(1, id);
                 resultSet = statement.executeQuery();
-                if (resultSet.next()) return true;
+                if(resultSet.next()){
+                    logger.debug("User found (valid )");
+                    return true;
+                }
 
 
             }
 
 
         } catch (Exception ex) {
-            System.out.println(ex.getMessage() + "   " + ex.getCause());
+            logger.error(ex.getMessage() + "   " + ex.getCause());
 
         }
+        logger.debug("No User Found in The DataBase ");
         return false;
     }
     private boolean userExists(String username) {
 
         try {
+
+            logger.info("attempting to check if user exists ");
 
             String sql = "SELECT * FROM USERS WHERE USERNAME = ?";
             statement = connection.prepareStatement(sql);
@@ -292,11 +319,12 @@ public class DataBaseProvider implements DataBaseService {
             return resultSet.next();
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+           logger.error(e.getMessage());
             return false;
         }
     }
     private User createUserFromResultSet(ResultSet resultSet) throws SQLException {
+        logger.info("Attempting to create a new user with result set");
         int userId = resultSet.getInt("USER_ID");
         String username = resultSet.getString("USERNAME");
         String password = resultSet.getString("PASSWORD");

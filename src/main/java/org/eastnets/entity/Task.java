@@ -1,9 +1,13 @@
 package org.eastnets.entity;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.Date;
 import java.util.List;
 
 public class Task {
+    private final static Logger logger = LogManager.getLogger(Task.class);
 
     private int taskId;
     private String name;
@@ -22,7 +26,7 @@ public class Task {
         setPriority(priority);
         setDueDate(dueDate);
         setAssignedTo(assignedTo);
-
+        logger.info("Task created in the first Constructor");
     }
 
 
@@ -34,6 +38,7 @@ public class Task {
         setPriority(priority);
         setDueDate(dueDate);
         setAssignedTo(assignedTo);
+        logger.info("Task created in the second Constructor");
     }
 
 
@@ -93,4 +98,16 @@ public class Task {
         this.assignedTo  = assignedTo;
     }
 
+    @Override
+    public String toString() {
+        return "Task{" +
+                "taskId=" + taskId +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", status=" + status +
+                ", priority=" + priority +
+                ", dueDate=" + dueDate +
+                ", assignedTo=" + assignedTo +
+                '}';
+    }
 }
