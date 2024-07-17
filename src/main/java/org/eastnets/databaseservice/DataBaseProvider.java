@@ -65,12 +65,12 @@ public class DataBaseProvider implements DataBaseService {
         try {
             // Load the Oracle JDBC driver
             logger.info("attempting to connect to database");
-            Class.forName("oracle.jdbc.OracleDriver");
+
 
             // Establish the connection
             connection = DriverManager.getConnection(jdbcUrl, username, password);
             System.out.println("Connected to the Oracle database successfully!");
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (Exception e) {
             logger.error("Error in connecting to the Oracle database", e);
         }
 

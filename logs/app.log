@@ -1,5 +1,92 @@
-2024-07-16 11:09:08.126 [main] INFO  org.eastnets.Main - Application started
-2024-07-16 11:09:08.128 [main] DEBUG org.eastnets.Main - Debugging message
-2024-07-16 11:09:08.128 [main] INFO  org.eastnets.Main - Info message
-2024-07-16 11:09:08.128 [main] ERROR org.eastnets.Main - Error message
-2024-07-16 11:09:08.128 [main] INFO  org.eastnets.Main - Application finished
+2024-07-16 17:10:52.617 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - Error in connecting to the Oracle database
+java.lang.ClassNotFoundException: oracle.jdbc.OracleDriver
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:382) ~[?:1.8.0_202]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424) ~[?:1.8.0_202]
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:349) ~[?:1.8.0_202]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357) ~[?:1.8.0_202]
+	at java.lang.Class.forName0(Native Method) ~[?:1.8.0_202]
+	at java.lang.Class.forName(Class.java:264) ~[?:1.8.0_202]
+	at org.eastnets.databaseservice.DataBaseProvider.connectToDataBase(DataBaseProvider.java:68) [classes/:?]
+	at org.eastnets.Main.main(Main.java:12) [classes/:?]
+2024-07-16 17:10:52.624 [main] INFO  org.eastnets.Main - Start
+2024-07-16 17:10:52.624 [main] DEBUG org.eastnets.Main - might cause problems 
+2024-07-16 17:10:52.624 [main] WARN  org.eastnets.Main - might cause problems 
+2024-07-16 17:10:52.624 [main] ERROR org.eastnets.Main -  problem 
+2024-07-16 17:11:01.507 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - Error in connecting to the Oracle database
+java.lang.ClassNotFoundException: oracle.jdbc.OracleDriver
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:382) ~[?:1.8.0_202]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424) ~[?:1.8.0_202]
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:349) ~[?:1.8.0_202]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357) ~[?:1.8.0_202]
+	at java.lang.Class.forName0(Native Method) ~[?:1.8.0_202]
+	at java.lang.Class.forName(Class.java:264) ~[?:1.8.0_202]
+	at org.eastnets.databaseservice.DataBaseProvider.connectToDataBase(DataBaseProvider.java:68) [classes/:?]
+	at org.eastnets.Main.main(Main.java:12) [classes/:?]
+2024-07-16 17:11:01.516 [main] INFO  org.eastnets.Main - Start
+2024-07-16 17:11:01.516 [main] DEBUG org.eastnets.Main - might cause problems 
+2024-07-16 17:11:01.516 [main] WARN  org.eastnets.Main - might cause problems 
+2024-07-16 17:11:01.516 [main] ERROR org.eastnets.Main -  problem 
+2024-07-16 17:11:04.399 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - Error in connecting to the Oracle database
+java.lang.ClassNotFoundException: oracle.jdbc.OracleDriver
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:382) ~[?:1.8.0_202]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424) ~[?:1.8.0_202]
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:349) ~[?:1.8.0_202]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357) ~[?:1.8.0_202]
+	at java.lang.Class.forName0(Native Method) ~[?:1.8.0_202]
+	at java.lang.Class.forName(Class.java:264) ~[?:1.8.0_202]
+	at org.eastnets.databaseservice.DataBaseProvider.connectToDataBase(DataBaseProvider.java:68) [classes/:?]
+	at org.eastnets.Main.main(Main.java:12) [classes/:?]
+2024-07-16 17:11:04.407 [main] INFO  org.eastnets.Main - Start
+2024-07-16 17:11:04.407 [main] DEBUG org.eastnets.Main - might cause problems 
+2024-07-16 17:11:04.407 [main] WARN  org.eastnets.Main - might cause problems 
+2024-07-16 17:11:04.407 [main] ERROR org.eastnets.Main -  problem 
+2024-07-16 17:11:07.001 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - Error in connecting to the Oracle database
+java.lang.ClassNotFoundException: oracle.jdbc.OracleDriver
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:382) ~[?:1.8.0_202]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424) ~[?:1.8.0_202]
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:349) ~[?:1.8.0_202]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357) ~[?:1.8.0_202]
+	at java.lang.Class.forName0(Native Method) ~[?:1.8.0_202]
+	at java.lang.Class.forName(Class.java:264) ~[?:1.8.0_202]
+	at org.eastnets.databaseservice.DataBaseProvider.connectToDataBase(DataBaseProvider.java:68) [classes/:?]
+	at org.eastnets.Main.main(Main.java:12) [classes/:?]
+2024-07-16 17:11:07.009 [main] INFO  org.eastnets.Main - Start
+2024-07-16 17:11:07.009 [main] DEBUG org.eastnets.Main - might cause problems 
+2024-07-16 17:11:07.009 [main] WARN  org.eastnets.Main - might cause problems 
+2024-07-16 17:11:07.009 [main] ERROR org.eastnets.Main -  problem 
+2024-07-16 17:11:09.824 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - Error in connecting to the Oracle database
+java.lang.ClassNotFoundException: oracle.jdbc.OracleDriver
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:382) ~[?:1.8.0_202]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424) ~[?:1.8.0_202]
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:349) ~[?:1.8.0_202]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357) ~[?:1.8.0_202]
+	at java.lang.Class.forName0(Native Method) ~[?:1.8.0_202]
+	at java.lang.Class.forName(Class.java:264) ~[?:1.8.0_202]
+	at org.eastnets.databaseservice.DataBaseProvider.connectToDataBase(DataBaseProvider.java:68) [classes/:?]
+	at org.eastnets.Main.main(Main.java:12) [classes/:?]
+2024-07-16 17:11:09.832 [main] INFO  org.eastnets.Main - Start
+2024-07-16 17:11:09.832 [main] DEBUG org.eastnets.Main - might cause problems 
+2024-07-16 17:11:09.832 [main] WARN  org.eastnets.Main - might cause problems 
+2024-07-16 17:11:09.832 [main] ERROR org.eastnets.Main -  problem 
+2024-07-16 17:12:14.659 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - Error in connecting to the Oracle database
+java.sql.SQLException: No suitable driver found for jdbc:oracle:thin:@//localhost:1521/XE
+	at java.sql.DriverManager.getConnection(DriverManager.java:689) ~[?:1.8.0_202]
+	at java.sql.DriverManager.getConnection(DriverManager.java:247) ~[?:1.8.0_202]
+	at org.eastnets.databaseservice.DataBaseProvider.connectToDataBase(DataBaseProvider.java:71) [classes/:?]
+	at org.eastnets.Main.main(Main.java:12) [classes/:?]
+2024-07-16 17:12:14.666 [main] INFO  org.eastnets.Main - Start
+2024-07-16 17:12:14.666 [main] DEBUG org.eastnets.Main - might cause problems 
+2024-07-16 17:12:14.667 [main] WARN  org.eastnets.Main - might cause problems 
+2024-07-16 17:12:14.667 [main] ERROR org.eastnets.Main -  problem 
+2024-07-16 17:14:46.709 [main] INFO  org.eastnets.Main - Start
+2024-07-16 17:14:46.711 [main] DEBUG org.eastnets.Main - might cause problems 
+2024-07-16 17:14:46.711 [main] WARN  org.eastnets.Main - might cause problems 
+2024-07-16 17:14:46.711 [main] ERROR org.eastnets.Main -  problem 
+2024-07-16 17:16:31.650 [main] INFO  org.eastnets.Main - Start
+2024-07-16 17:16:31.652 [main] DEBUG org.eastnets.Main - might cause problems 
+2024-07-16 17:16:31.652 [main] WARN  org.eastnets.Main - might cause problems 
+2024-07-16 17:16:31.652 [main] ERROR org.eastnets.Main -  problem 
+2024-07-17 09:54:45.060 [main] INFO  org.eastnets.Main - Start
+2024-07-17 09:54:45.062 [main] DEBUG org.eastnets.Main - might cause problems 
+2024-07-17 09:54:45.063 [main] WARN  org.eastnets.Main - might cause problems 
+2024-07-17 09:54:45.063 [main] ERROR org.eastnets.Main -  problem 
