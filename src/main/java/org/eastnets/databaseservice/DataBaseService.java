@@ -13,12 +13,12 @@ public interface DataBaseService{
     void insertTask(Task task);
     void updateTask(Task task);
     void deleteTask(Task task);
-
     List<Task> getAllTasksFromDB();
-    Task getTaskById(int id);
     List<Task> getTasksByName(String name);
-    List<Task> getTasksByStatus(String status);
+    List<Task> getTasksByStatus(boolean status);
     List<Task> getTasksByPriority(String priority);
+    List<User> getUsersByTaskId(int taskId);
+    List<Task> getTasksByUserId(int userId);
 
 
 

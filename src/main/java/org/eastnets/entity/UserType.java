@@ -56,7 +56,7 @@ public enum UserType
     },
 
     JUNIOR{
-        // SAD :(
+
         @Override
         public boolean hasViewAllTasksAndUsersPrivlage(){
             return false;
@@ -83,7 +83,7 @@ public enum UserType
 
     };
 
-    public  boolean hasViewTasksAssignedPrivlage(){
+    public  boolean hasViewOwnTasks(){
         return true;
     }
     public abstract boolean hasViewAllTasksAndUsersPrivlage();

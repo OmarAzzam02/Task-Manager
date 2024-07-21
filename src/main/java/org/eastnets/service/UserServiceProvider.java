@@ -38,7 +38,7 @@ public class UserServiceProvider implements UserService {
             db.addUser(user);
             logger.debug("user added {} ", user.getUsername());
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+
         }
     }
 

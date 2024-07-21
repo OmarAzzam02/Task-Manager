@@ -5,23 +5,17 @@
         <File name="File" fileName="logs/app.log">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </File>
-
-        <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
-        </Console>
     </Appenders>
 
     <Loggers>
         <!-- Root Logger -->
         <Root level="error">
             <AppenderRef ref="File"/>
-            <AppenderRef ref="Console"/>
         </Root>
 
         <!-- Application Logger -->
         <Logger name="org.eastnets.Main" level="debug" additivity="false">
             <AppenderRef ref="File"/>
-            <AppenderRef ref="Console"/>
         </Logger>
     </Loggers>
 </Configuration>

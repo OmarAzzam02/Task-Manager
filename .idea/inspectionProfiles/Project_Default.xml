@@ -1,0 +1,36 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="LoggingPlaceholderCountMatchesArgumentCount" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="VulnerableLibrariesLocal" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="isIgnoringEnabled" value="true" />
+      <option name="ignoredModules">
+        <list>
+          <option value="TestManagment" />
+          <option value="TestManagment" />
+          <option value="TestManagment" />
+          <option value="TestManagment" />
+          <option value="TestManagment" />
+        </list>
+      </option>
+      <option name="ignoredPackages">
+        <list>
+          <option value="org.dom4j:dom4j:2.1.1" />
+          <option value="org.hibernate:hibernate-core:5.4.10.Final" />
+          <option value="org.apache.logging.log4j:log4j-core:2.17.0" />
+          <option value="org.apache.ant:ant:1.7.1" />
+          <option value="org.codehaus.plexus:plexus-archiver:1.0-alpha-11" />
+        </list>
+      </option>
+      <option name="ignoredReasons">
+        <list>
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>

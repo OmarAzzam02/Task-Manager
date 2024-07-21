@@ -1,92 +1,26 @@
-2024-07-16 17:10:52.617 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - Error in connecting to the Oracle database
-java.lang.ClassNotFoundException: oracle.jdbc.OracleDriver
-	at java.net.URLClassLoader.findClass(URLClassLoader.java:382) ~[?:1.8.0_202]
-	at java.lang.ClassLoader.loadClass(ClassLoader.java:424) ~[?:1.8.0_202]
-	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:349) ~[?:1.8.0_202]
-	at java.lang.ClassLoader.loadClass(ClassLoader.java:357) ~[?:1.8.0_202]
-	at java.lang.Class.forName0(Native Method) ~[?:1.8.0_202]
-	at java.lang.Class.forName(Class.java:264) ~[?:1.8.0_202]
-	at org.eastnets.databaseservice.DataBaseProvider.connectToDataBase(DataBaseProvider.java:68) [classes/:?]
-	at org.eastnets.Main.main(Main.java:12) [classes/:?]
-2024-07-16 17:10:52.624 [main] INFO  org.eastnets.Main - Start
-2024-07-16 17:10:52.624 [main] DEBUG org.eastnets.Main - might cause problems 
-2024-07-16 17:10:52.624 [main] WARN  org.eastnets.Main - might cause problems 
-2024-07-16 17:10:52.624 [main] ERROR org.eastnets.Main -  problem 
-2024-07-16 17:11:01.507 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - Error in connecting to the Oracle database
-java.lang.ClassNotFoundException: oracle.jdbc.OracleDriver
-	at java.net.URLClassLoader.findClass(URLClassLoader.java:382) ~[?:1.8.0_202]
-	at java.lang.ClassLoader.loadClass(ClassLoader.java:424) ~[?:1.8.0_202]
-	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:349) ~[?:1.8.0_202]
-	at java.lang.ClassLoader.loadClass(ClassLoader.java:357) ~[?:1.8.0_202]
-	at java.lang.Class.forName0(Native Method) ~[?:1.8.0_202]
-	at java.lang.Class.forName(Class.java:264) ~[?:1.8.0_202]
-	at org.eastnets.databaseservice.DataBaseProvider.connectToDataBase(DataBaseProvider.java:68) [classes/:?]
-	at org.eastnets.Main.main(Main.java:12) [classes/:?]
-2024-07-16 17:11:01.516 [main] INFO  org.eastnets.Main - Start
-2024-07-16 17:11:01.516 [main] DEBUG org.eastnets.Main - might cause problems 
-2024-07-16 17:11:01.516 [main] WARN  org.eastnets.Main - might cause problems 
-2024-07-16 17:11:01.516 [main] ERROR org.eastnets.Main -  problem 
-2024-07-16 17:11:04.399 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - Error in connecting to the Oracle database
-java.lang.ClassNotFoundException: oracle.jdbc.OracleDriver
-	at java.net.URLClassLoader.findClass(URLClassLoader.java:382) ~[?:1.8.0_202]
-	at java.lang.ClassLoader.loadClass(ClassLoader.java:424) ~[?:1.8.0_202]
-	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:349) ~[?:1.8.0_202]
-	at java.lang.ClassLoader.loadClass(ClassLoader.java:357) ~[?:1.8.0_202]
-	at java.lang.Class.forName0(Native Method) ~[?:1.8.0_202]
-	at java.lang.Class.forName(Class.java:264) ~[?:1.8.0_202]
-	at org.eastnets.databaseservice.DataBaseProvider.connectToDataBase(DataBaseProvider.java:68) [classes/:?]
-	at org.eastnets.Main.main(Main.java:12) [classes/:?]
-2024-07-16 17:11:04.407 [main] INFO  org.eastnets.Main - Start
-2024-07-16 17:11:04.407 [main] DEBUG org.eastnets.Main - might cause problems 
-2024-07-16 17:11:04.407 [main] WARN  org.eastnets.Main - might cause problems 
-2024-07-16 17:11:04.407 [main] ERROR org.eastnets.Main -  problem 
-2024-07-16 17:11:07.001 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - Error in connecting to the Oracle database
-java.lang.ClassNotFoundException: oracle.jdbc.OracleDriver
-	at java.net.URLClassLoader.findClass(URLClassLoader.java:382) ~[?:1.8.0_202]
-	at java.lang.ClassLoader.loadClass(ClassLoader.java:424) ~[?:1.8.0_202]
-	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:349) ~[?:1.8.0_202]
-	at java.lang.ClassLoader.loadClass(ClassLoader.java:357) ~[?:1.8.0_202]
-	at java.lang.Class.forName0(Native Method) ~[?:1.8.0_202]
-	at java.lang.Class.forName(Class.java:264) ~[?:1.8.0_202]
-	at org.eastnets.databaseservice.DataBaseProvider.connectToDataBase(DataBaseProvider.java:68) [classes/:?]
-	at org.eastnets.Main.main(Main.java:12) [classes/:?]
-2024-07-16 17:11:07.009 [main] INFO  org.eastnets.Main - Start
-2024-07-16 17:11:07.009 [main] DEBUG org.eastnets.Main - might cause problems 
-2024-07-16 17:11:07.009 [main] WARN  org.eastnets.Main - might cause problems 
-2024-07-16 17:11:07.009 [main] ERROR org.eastnets.Main -  problem 
-2024-07-16 17:11:09.824 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - Error in connecting to the Oracle database
-java.lang.ClassNotFoundException: oracle.jdbc.OracleDriver
-	at java.net.URLClassLoader.findClass(URLClassLoader.java:382) ~[?:1.8.0_202]
-	at java.lang.ClassLoader.loadClass(ClassLoader.java:424) ~[?:1.8.0_202]
-	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:349) ~[?:1.8.0_202]
-	at java.lang.ClassLoader.loadClass(ClassLoader.java:357) ~[?:1.8.0_202]
-	at java.lang.Class.forName0(Native Method) ~[?:1.8.0_202]
-	at java.lang.Class.forName(Class.java:264) ~[?:1.8.0_202]
-	at org.eastnets.databaseservice.DataBaseProvider.connectToDataBase(DataBaseProvider.java:68) [classes/:?]
-	at org.eastnets.Main.main(Main.java:12) [classes/:?]
-2024-07-16 17:11:09.832 [main] INFO  org.eastnets.Main - Start
-2024-07-16 17:11:09.832 [main] DEBUG org.eastnets.Main - might cause problems 
-2024-07-16 17:11:09.832 [main] WARN  org.eastnets.Main - might cause problems 
-2024-07-16 17:11:09.832 [main] ERROR org.eastnets.Main -  problem 
-2024-07-16 17:12:14.659 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - Error in connecting to the Oracle database
-java.sql.SQLException: No suitable driver found for jdbc:oracle:thin:@//localhost:1521/XE
-	at java.sql.DriverManager.getConnection(DriverManager.java:689) ~[?:1.8.0_202]
-	at java.sql.DriverManager.getConnection(DriverManager.java:247) ~[?:1.8.0_202]
-	at org.eastnets.databaseservice.DataBaseProvider.connectToDataBase(DataBaseProvider.java:71) [classes/:?]
-	at org.eastnets.Main.main(Main.java:12) [classes/:?]
-2024-07-16 17:12:14.666 [main] INFO  org.eastnets.Main - Start
-2024-07-16 17:12:14.666 [main] DEBUG org.eastnets.Main - might cause problems 
-2024-07-16 17:12:14.667 [main] WARN  org.eastnets.Main - might cause problems 
-2024-07-16 17:12:14.667 [main] ERROR org.eastnets.Main -  problem 
-2024-07-16 17:14:46.709 [main] INFO  org.eastnets.Main - Start
-2024-07-16 17:14:46.711 [main] DEBUG org.eastnets.Main - might cause problems 
-2024-07-16 17:14:46.711 [main] WARN  org.eastnets.Main - might cause problems 
-2024-07-16 17:14:46.711 [main] ERROR org.eastnets.Main -  problem 
-2024-07-16 17:16:31.650 [main] INFO  org.eastnets.Main - Start
-2024-07-16 17:16:31.652 [main] DEBUG org.eastnets.Main - might cause problems 
-2024-07-16 17:16:31.652 [main] WARN  org.eastnets.Main - might cause problems 
-2024-07-16 17:16:31.652 [main] ERROR org.eastnets.Main -  problem 
-2024-07-17 09:54:45.060 [main] INFO  org.eastnets.Main - Start
-2024-07-17 09:54:45.062 [main] DEBUG org.eastnets.Main - might cause problems 
-2024-07-17 09:54:45.063 [main] WARN  org.eastnets.Main - might cause problems 
-2024-07-17 09:54:45.063 [main] ERROR org.eastnets.Main -  problem 
+
+2024-07-21 14:19:41.730 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - No user found with the provided username and password. Cause: null
+2024-07-21 14:19:41.736 [main] ERROR org.eastnets.entity.User - User not found
+java.lang.Exception: Invalid username or password
+	at org.eastnets.service.UserServiceProvider.signin(UserServiceProvider.java:24) [classes/:?]
+	at org.eastnets.Main.testUserService(Main.java:51) [classes/:?]
+	at org.eastnets.Main.main(Main.java:43) [classes/:?]
+2024-07-21 14:19:41.742 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - org.hibernate.hql.internal.ast.QuerySyntaxException: USER is not mapped [SELECT U FROM USER U WHERE USERNAME = :USERNAME]   org.hibernate.hql.internal.ast.QuerySyntaxException: USER is not mapped [SELECT U FROM USER U WHERE USERNAME = :USERNAME]
+2024-07-21 14:19:41.748 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - Error in inserting task
+2024-07-21 14:19:41.840 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - Removing a detached instance org.eastnets.entity.Task#1   null
+2024-07-21 14:19:41.840 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - User already assigned to this task   null
+2024-07-21 14:24:51.530 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - org.hibernate.hql.internal.ast.QuerySyntaxException: USER is not mapped [SELECT U FROM USER U WHERE USERNAME = :USERNAME]   org.hibernate.hql.internal.ast.QuerySyntaxException: USER is not mapped [SELECT U FROM USER U WHERE USERNAME = :USERNAME]
+2024-07-21 14:24:51.538 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - Error in inserting task
+2024-07-21 14:24:51.577 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - Removing a detached instance org.eastnets.entity.Task#1   null
+2024-07-21 14:24:51.577 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - User already assigned to this task   null
+2024-07-21 14:24:51.588 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - Parameter value [HIGH] did not match expected type [org.eastnets.entity.Priority (n/a)]   null
+2024-07-21 14:24:51.588 [main] ERROR org.eastnets.service.TaskServiceProvider - Error filtering  by Priority Tasks
+2024-07-21 14:24:51.594 [main] ERROR org.eastnets.service.TaskServiceProvider - Error getting users by Task ID
+2024-07-21 14:24:51.600 [main] ERROR org.eastnets.service.TaskServiceProvider - Error getting users task
+2024-07-21 14:49:34.076 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - Error in inserting task
+2024-07-21 14:49:34.190 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - Removing a detached instance org.eastnets.entity.Task#1   null
+2024-07-21 14:49:34.190 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - User already assigned to this task   null
+2024-07-21 14:49:34.223 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - Parameter value [HIGH] did not match expected type [org.eastnets.entity.Priority (n/a)]   null
+2024-07-21 14:49:34.223 [main] ERROR org.eastnets.service.TaskServiceProvider - Error filtering  by Priority Tasks
+2024-07-21 14:49:34.229 [main] ERROR org.eastnets.service.TaskServiceProvider - Error getting users by Task ID
+2024-07-21 14:49:34.234 [main] ERROR org.eastnets.service.TaskServiceProvider - Error getting users task
