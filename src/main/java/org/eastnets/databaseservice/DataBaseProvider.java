@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.eastnets.entity.UserType;
 import org.eastnets.entity.User;
 import org.eastnets.entity.Task;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -16,11 +17,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+
+@Repository
 public class DataBaseProvider implements DataBaseService {
     private final static Logger logger = LogManager.getLogger(DataBaseProvider.class);
-    private Connection connection = null;
-    private PreparedStatement statement = null;
-    private ResultSet resultSet = null;
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("task-management");
     EntityManager em = emf.createEntityManager();
 
@@ -57,8 +57,6 @@ public class DataBaseProvider implements DataBaseService {
         } catch (Exception ex) {
             logger.error(ex.getMessage() + "   " + ex.getCause());
         }
-
-
     }
 
     private boolean userIsRegistered(String username) {

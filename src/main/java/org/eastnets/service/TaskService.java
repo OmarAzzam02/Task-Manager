@@ -16,6 +16,7 @@ public interface TaskService {
     List<Task> filterByName(Task task , UserType userType);
     List<Task>filterByStatus(Task task , UserType userType);
     List<Task> filterByPriority(Task task , UserType userType);
+    List<Task> filterByDueDate(Task task , UserType userType);
     List<User> getUsersByTaskId(int taskId , UserType userType);
     List<Task> getUsersTask(int userId , UserType userType);
 

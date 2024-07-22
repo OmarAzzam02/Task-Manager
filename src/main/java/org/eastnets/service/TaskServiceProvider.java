@@ -1,6 +1,6 @@
 package org.eastnets.service;
 
-import com.sun.org.apache.bcel.internal.generic.ATHROW;
+
 import org.eastnets.databaseservice.DataBaseProvider;
 import org.eastnets.entity.Task;
 import org.eastnets.entity.User;
@@ -13,17 +13,27 @@ import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+@Service
 public class TaskServiceProvider implements TaskService {
     private final static Logger logger = LogManager.getLogger(TaskServiceProvider.class);
-    DataBaseProvider db = new DataBaseProvider();
+
+    private final DataBaseProvider db;
 
 
+
+    @Autowired
+   public TaskServiceProvider(DataBaseProvider dataBaseProvider){
+        db = dataBaseProvider;
+
+    }
 
     @Override
     public void addTask(Task task, UserType userType) throws Exception {
@@ -159,6 +169,11 @@ public class TaskServiceProvider implements TaskService {
             logger.error("Error filtering  by Priority Tasks", ex.getMessage());
             return null;
         }
+    }
+
+    @Override
+    public List<Task> filterByDueDate(Task task, UserType userType) {
+       return null;
     }
 
     @Override

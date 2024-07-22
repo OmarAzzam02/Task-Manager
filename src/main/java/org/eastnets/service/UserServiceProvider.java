@@ -5,13 +5,23 @@ import org.apache.logging.log4j.Logger;
 import org.eastnets.databaseservice.DataBaseProvider;
 import org.eastnets.entity.User;
 import org.eastnets.entity.UserType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class UserServiceProvider implements UserService {
 
     private final static Logger logger = LogManager.getLogger(User.class);
-    private final DataBaseProvider db = new DataBaseProvider();
+    private final DataBaseProvider db;
+
+
+    @Autowired
+    UserServiceProvider(DataBaseProvider dataBaseProvider ) {
+        db = dataBaseProvider;
+
+    }
 
 
     @Override
@@ -19,7 +29,7 @@ public class UserServiceProvider implements UserService {
         try {
             logger.info("Attempting to signin user  {}", username);
             User user = db.login(username, password);
-            logger.debug("user after signin: {}", user);
+            logger.info("user after signin: {}", user.getUserId());
             if (user == null)
                 logger.error("User not found", new Exception("Invalid username or password"));
 
@@ -36,7 +46,7 @@ public class UserServiceProvider implements UserService {
         try {
             logger.info("Attempting to signup user {}", user.getUsername());
             db.addUser(user);
-            logger.debug("user added {} ", user.getUsername());
+            logger.info("user added {} ", user.getUsername());
         } catch (Exception ex) {
 
         }

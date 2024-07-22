@@ -1,26 +1,158 @@
-
-2024-07-21 14:19:41.730 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - No user found with the provided username and password. Cause: null
-2024-07-21 14:19:41.736 [main] ERROR org.eastnets.entity.User - User not found
-java.lang.Exception: Invalid username or password
-	at org.eastnets.service.UserServiceProvider.signin(UserServiceProvider.java:24) [classes/:?]
-	at org.eastnets.Main.testUserService(Main.java:51) [classes/:?]
-	at org.eastnets.Main.main(Main.java:43) [classes/:?]
-2024-07-21 14:19:41.742 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - org.hibernate.hql.internal.ast.QuerySyntaxException: USER is not mapped [SELECT U FROM USER U WHERE USERNAME = :USERNAME]   org.hibernate.hql.internal.ast.QuerySyntaxException: USER is not mapped [SELECT U FROM USER U WHERE USERNAME = :USERNAME]
-2024-07-21 14:19:41.748 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - Error in inserting task
-2024-07-21 14:19:41.840 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - Removing a detached instance org.eastnets.entity.Task#1   null
-2024-07-21 14:19:41.840 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - User already assigned to this task   null
-2024-07-21 14:24:51.530 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - org.hibernate.hql.internal.ast.QuerySyntaxException: USER is not mapped [SELECT U FROM USER U WHERE USERNAME = :USERNAME]   org.hibernate.hql.internal.ast.QuerySyntaxException: USER is not mapped [SELECT U FROM USER U WHERE USERNAME = :USERNAME]
-2024-07-21 14:24:51.538 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - Error in inserting task
-2024-07-21 14:24:51.577 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - Removing a detached instance org.eastnets.entity.Task#1   null
-2024-07-21 14:24:51.577 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - User already assigned to this task   null
-2024-07-21 14:24:51.588 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - Parameter value [HIGH] did not match expected type [org.eastnets.entity.Priority (n/a)]   null
-2024-07-21 14:24:51.588 [main] ERROR org.eastnets.service.TaskServiceProvider - Error filtering  by Priority Tasks
-2024-07-21 14:24:51.594 [main] ERROR org.eastnets.service.TaskServiceProvider - Error getting users by Task ID
-2024-07-21 14:24:51.600 [main] ERROR org.eastnets.service.TaskServiceProvider - Error getting users task
-2024-07-21 14:49:34.076 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - Error in inserting task
-2024-07-21 14:49:34.190 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - Removing a detached instance org.eastnets.entity.Task#1   null
-2024-07-21 14:49:34.190 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - User already assigned to this task   null
-2024-07-21 14:49:34.223 [main] ERROR org.eastnets.databaseservice.DataBaseProvider - Parameter value [HIGH] did not match expected type [org.eastnets.entity.Priority (n/a)]   null
-2024-07-21 14:49:34.223 [main] ERROR org.eastnets.service.TaskServiceProvider - Error filtering  by Priority Tasks
-2024-07-21 14:49:34.229 [main] ERROR org.eastnets.service.TaskServiceProvider - Error getting users by Task ID
-2024-07-21 14:49:34.234 [main] ERROR org.eastnets.service.TaskServiceProvider - Error getting users task
+2024-07-22 16:49:03.424 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: task-management]
+2024-07-22 16:49:03.490 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.5.7.Final
+2024-07-22 16:49:03.686 [main] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-07-22 16:49:04.162 [main] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-07-22 16:49:04.214 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [oracle.jdbc.driver.OracleDriver] at URL [jdbc:oracle:thin:@//localhost:1521/XE]
+2024-07-22 16:49:04.214 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {user=system, password=****}
+2024-07-22 16:49:04.214 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-07-22 16:49:04.218 [main] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-07-22 16:54:42.893 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: task-management]
+2024-07-22 16:54:42.955 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.5.7.Final
+2024-07-22 16:54:43.175 [main] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-07-22 16:54:43.589 [main] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-07-22 16:54:43.637 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [oracle.jdbc.driver.OracleDriver] at URL [jdbc:oracle:thin:@//localhost:1521/XE]
+2024-07-22 16:54:43.637 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {user=system, password=****}
+2024-07-22 16:54:43.637 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-07-22 16:54:43.637 [main] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-07-22 16:54:44.350 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.Oracle12cDialect
+2024-07-22 16:54:45.181 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-07-22 16:59:45.181 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: task-management]
+2024-07-22 16:59:45.248 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.5.7.Final
+2024-07-22 16:59:45.447 [main] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-07-22 16:59:45.941 [main] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-07-22 16:59:45.981 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [oracle.jdbc.driver.OracleDriver] at URL [jdbc:oracle:thin:@//localhost:1521/XE]
+2024-07-22 16:59:45.981 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {user=system, password=****}
+2024-07-22 16:59:45.981 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-07-22 16:59:45.988 [main] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-07-22 16:59:46.713 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.Oracle12cDialect
+2024-07-22 16:59:47.457 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-07-22 17:00:18.679 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: task-management]
+2024-07-22 17:00:18.719 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.5.7.Final
+2024-07-22 17:00:18.903 [main] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-07-22 17:00:19.353 [main] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-07-22 17:00:19.388 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [oracle.jdbc.driver.OracleDriver] at URL [jdbc:oracle:thin:@//localhost:1521/XE]
+2024-07-22 17:00:19.388 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {user=system, password=****}
+2024-07-22 17:00:19.388 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-07-22 17:00:19.388 [main] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-07-22 17:00:20.119 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.Oracle12cDialect
+2024-07-22 17:00:20.890 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-07-22 17:00:30.115 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: task-management]
+2024-07-22 17:00:30.165 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.5.7.Final
+2024-07-22 17:00:30.332 [main] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-07-22 17:00:30.801 [main] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-07-22 17:00:30.837 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [oracle.jdbc.driver.OracleDriver] at URL [jdbc:oracle:thin:@//localhost:1521/XE]
+2024-07-22 17:00:30.837 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {user=system, password=****}
+2024-07-22 17:00:30.837 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-07-22 17:00:30.847 [main] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-07-22 17:00:31.799 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.Oracle12cDialect
+2024-07-22 17:00:32.631 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-07-22 17:04:43.198 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: task-management]
+2024-07-22 17:04:43.271 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.5.7.Final
+2024-07-22 17:04:43.543 [main] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-07-22 17:04:44.098 [main] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-07-22 17:04:44.146 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [oracle.jdbc.driver.OracleDriver] at URL [jdbc:oracle:thin:@//localhost:1521/XE]
+2024-07-22 17:04:44.146 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {user=system, password=****}
+2024-07-22 17:04:44.146 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-07-22 17:04:44.146 [main] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-07-22 17:04:44.997 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.Oracle12cDialect
+2024-07-22 17:04:46.109 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-07-22 17:05:52.041 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: task-management]
+2024-07-22 17:05:52.142 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.5.7.Final
+2024-07-22 17:05:52.434 [main] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-07-22 17:05:53.114 [main] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-07-22 17:05:53.157 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [oracle.jdbc.driver.OracleDriver] at URL [jdbc:oracle:thin:@//localhost:1521/XE]
+2024-07-22 17:05:53.157 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {user=system, password=****}
+2024-07-22 17:05:53.157 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-07-22 17:05:53.168 [main] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-07-22 17:05:54.323 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.Oracle12cDialect
+2024-07-22 17:05:55.534 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-07-22 17:06:42.590 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: task-management]
+2024-07-22 17:06:42.639 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.5.7.Final
+2024-07-22 17:06:42.873 [main] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-07-22 17:06:43.457 [main] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-07-22 17:06:43.504 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [oracle.jdbc.driver.OracleDriver] at URL [jdbc:oracle:thin:@//localhost:1521/XE]
+2024-07-22 17:06:43.505 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {user=system, password=****}
+2024-07-22 17:06:43.505 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-07-22 17:06:43.509 [main] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-07-22 17:06:44.323 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.Oracle12cDialect
+2024-07-22 17:06:45.319 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-07-22 17:07:06.481 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: task-management]
+2024-07-22 17:07:06.534 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.5.7.Final
+2024-07-22 17:07:06.774 [main] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-07-22 17:07:07.417 [main] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-07-22 17:07:07.458 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [oracle.jdbc.driver.OracleDriver] at URL [jdbc:oracle:thin:@//localhost:1521/XE]
+2024-07-22 17:07:07.459 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {user=system, password=****}
+2024-07-22 17:07:07.459 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-07-22 17:07:07.461 [main] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-07-22 17:07:08.248 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.Oracle12cDialect
+2024-07-22 17:07:09.275 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-07-22 17:09:01.567 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: task-management]
+2024-07-22 17:09:01.635 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.5.7.Final
+2024-07-22 17:09:01.885 [main] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-07-22 17:09:02.434 [main] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-07-22 17:09:02.471 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [oracle.jdbc.driver.OracleDriver] at URL [jdbc:oracle:thin:@//localhost:1521/XE]
+2024-07-22 17:09:02.471 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {user=system, password=****}
+2024-07-22 17:09:02.471 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-07-22 17:09:02.486 [main] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-07-22 17:09:03.292 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.Oracle12cDialect
+2024-07-22 17:09:04.242 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-07-22 17:10:05.908 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: task-management]
+2024-07-22 17:10:05.969 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.5.7.Final
+2024-07-22 17:10:06.214 [main] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-07-22 17:10:06.686 [main] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-07-22 17:10:06.727 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [oracle.jdbc.driver.OracleDriver] at URL [jdbc:oracle:thin:@//localhost:1521/XE]
+2024-07-22 17:10:06.727 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {user=system, password=****}
+2024-07-22 17:10:06.727 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-07-22 17:10:06.735 [main] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-07-22 17:10:07.500 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.Oracle12cDialect
+2024-07-22 17:10:08.559 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-07-22 17:11:20.131 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: task-management]
+2024-07-22 17:11:20.194 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.5.7.Final
+2024-07-22 17:11:20.461 [main] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-07-22 17:11:20.919 [main] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-07-22 17:11:20.952 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [oracle.jdbc.driver.OracleDriver] at URL [jdbc:oracle:thin:@//localhost:1521/XE]
+2024-07-22 17:11:20.952 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {user=system, password=****}
+2024-07-22 17:11:20.962 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-07-22 17:11:20.963 [main] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-07-22 17:11:21.705 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.Oracle12cDialect
+2024-07-22 17:11:22.651 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-07-22 17:12:30.638 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: task-management]
+2024-07-22 17:12:30.695 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.5.7.Final
+2024-07-22 17:12:30.934 [main] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-07-22 17:12:31.406 [main] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-07-22 17:12:31.453 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [oracle.jdbc.driver.OracleDriver] at URL [jdbc:oracle:thin:@//localhost:1521/XE]
+2024-07-22 17:12:31.453 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {user=system, password=****}
+2024-07-22 17:12:31.453 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-07-22 17:12:31.461 [main] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-07-22 17:12:32.217 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.Oracle12cDialect
+2024-07-22 17:12:33.219 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-07-22 22:14:40.130 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: task-management]
+2024-07-22 22:14:40.178 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.5.7.Final
+2024-07-22 22:14:40.320 [main] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-07-22 22:14:40.636 [main] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-07-22 22:14:40.668 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [oracle.jdbc.driver.OracleDriver] at URL [jdbc:oracle:thin:@//localhost:1521/XE]
+2024-07-22 22:14:40.668 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {user=system, password=****}
+2024-07-22 22:14:40.668 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-07-22 22:14:40.668 [main] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-07-22 22:14:43.281 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.Oracle12cDialect
+2024-07-22 22:14:43.942 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-07-22 22:15:45.679 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: task-management]
+2024-07-22 22:15:45.726 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.5.7.Final
+2024-07-22 22:15:46.001 [main] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-07-22 22:15:46.457 [main] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-07-22 22:15:46.493 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [oracle.jdbc.driver.OracleDriver] at URL [jdbc:oracle:thin:@//localhost:1521/XE]
+2024-07-22 22:15:46.493 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {user=system, password=****}
+2024-07-22 22:15:46.493 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-07-22 22:15:46.504 [main] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-07-22 22:15:47.178 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.Oracle12cDialect
+2024-07-22 22:15:48.153 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-07-22 22:37:18.333 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: task-management]
+2024-07-22 22:37:18.382 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.5.7.Final
+2024-07-22 22:37:18.549 [main] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-07-22 22:37:18.921 [main] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-07-22 22:37:18.951 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [oracle.jdbc.driver.OracleDriver] at URL [jdbc:oracle:thin:@//localhost:1521/XE]
+2024-07-22 22:37:18.951 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {user=system, password=****}
+2024-07-22 22:37:18.951 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-07-22 22:37:18.951 [main] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-07-22 22:37:19.595 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.Oracle12cDialect
+2024-07-22 22:37:20.340 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]

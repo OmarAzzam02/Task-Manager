@@ -9,7 +9,7 @@
 
     <Loggers>
         <!-- Root Logger -->
-        <Root level="error">
+        <Root level="info">
             <AppenderRef ref="File"/>
         </Root>
 
