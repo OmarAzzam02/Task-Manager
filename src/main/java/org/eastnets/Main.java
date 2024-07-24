@@ -1,7 +1,6 @@
 package org.eastnets;
 
 import org.eastnets.config.AppConfig;
-import org.eastnets.service.TaskServiceProvider;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -19,11 +18,8 @@ public class Main {
                 System.out.println(beanName + " : " + context.getBean(beanName).getClass().getName());
             }
 
-            // Retrieve a specific bean (if needed)
-
-
         } catch (Exception e) {
-            e.printStackTrace();
+
         }
     }
 }

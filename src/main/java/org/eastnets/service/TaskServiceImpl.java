@@ -1,38 +1,29 @@
 package org.eastnets.service;
 
 
-import org.eastnets.databaseservice.DataBaseProvider;
+import org.eastnets.repository.TaskRepositoryImpl;
 import org.eastnets.entity.Task;
 import org.eastnets.entity.User;
 import org.eastnets.entity.UserType;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-
+import java.util.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
 @Service
-public class TaskServiceProvider implements TaskService {
-    private final static Logger logger = LogManager.getLogger(TaskServiceProvider.class);
+public class TaskServiceImpl implements TaskService {
+    private final static Logger logger = LogManager.getLogger(TaskServiceImpl.class);
 
-    private final DataBaseProvider db;
+    private final TaskRepositoryImpl  db;
+
 
 
 
     @Autowired
-   public TaskServiceProvider(DataBaseProvider dataBaseProvider){
-        db = dataBaseProvider;
-
+   public TaskServiceImpl(TaskRepositoryImpl taskRepository){
+        db = taskRepository;
     }
 
     @Override
@@ -44,6 +35,7 @@ public class TaskServiceProvider implements TaskService {
 
         } catch (Exception e) {
             logger.error("Error inserting task", e.getMessage());
+            throw new Exception("Error inserting task");
         }
 
     }
@@ -92,7 +84,7 @@ public class TaskServiceProvider implements TaskService {
     public List<Task> getAllTasks(UserType userType) {
         try {
             logger.info("Getting Tasks.....");
-            List<Task> tasks = new ArrayList<>();
+            List<Task> tasks;
             if (!userType.hasViewAllTasksAndUsersPrivlage()) throw new Exception("You dont have  previlage");
 
             tasks = db.getAllTasksFromDB();
@@ -112,13 +104,13 @@ public class TaskServiceProvider implements TaskService {
     }
 
     @Override
-    public List<Task> filterByName(Task task, UserType userType) {
+    public List<Task> filterByName(String name, UserType userType) {
         logger.info("Getting Tasks By Name  ....");
-        List<Task> tasks = new ArrayList<>();
+        List<Task> tasks;
         try {
             if (!userType.hasViewOwnTasks()) throw new Exception("you dont have the previlage");
 
-            tasks = db.getTasksByName(task.getName());
+            tasks = db.getTasksByName(name);
 
             if (tasks == null || tasks.isEmpty())
                 throw new Exception("No tasks found");
@@ -126,19 +118,23 @@ public class TaskServiceProvider implements TaskService {
             return tasks;
 
         } catch (Exception ex) {
-            logger.error("Error filterin by name Tasks", ex.getMessage());
+            logger.error("Error filtering by name Tasks", ex.getMessage());
             return null;
         }
     }
 
     @Override
-    public List<Task> filterByStatus(Task task, UserType userType) {
+    public List<Task> filterByStatus(String state, UserType userType) {
         logger.info("Getting Tasks By Status  ....");
-        List<Task> tasks = new ArrayList<>();
+        boolean status;
+
+        status = "yes".equalsIgnoreCase(state);
+
+        List<Task> tasks;
         try {
             if (!userType.hasViewOwnTasks()) throw new Exception("you dont have the previlage");
 
-            tasks = db.getTasksByStatus(task.getStatus());
+            tasks = db.getTasksByStatus(status);
 
             if (tasks == null || tasks.isEmpty())
                 throw new Exception("No tasks found");
@@ -152,13 +148,13 @@ public class TaskServiceProvider implements TaskService {
     }
 
     @Override
-    public List<Task> filterByPriority(Task task, UserType userType) {
+    public List<Task> filterByPriority(String priority, UserType userType) {
         logger.info("Getting Tasks By Priority  ....");
-        List<Task> tasks = new ArrayList<>();
+        List<Task> tasks;
         try {
             if (!userType.hasViewOwnTasks()) throw new Exception("you dont have the previlage");
 
-            tasks = db.getTasksByPriority(task.getPriority().name());
+            tasks = db.getTasksByPriority(priority);
 
             if (tasks == null || tasks.isEmpty())
                 throw new Exception("No tasks found");
@@ -171,14 +167,11 @@ public class TaskServiceProvider implements TaskService {
         }
     }
 
-    @Override
-    public List<Task> filterByDueDate(Task task, UserType userType) {
-       return null;
-    }
+
 
     @Override
     public List<User> getUsersByTaskId(int taskId, UserType userType) {
-        List<User> users = new ArrayList<>();
+        List<User> users;
 
         try {
             logger.info("Getting Users By Task Id....");
@@ -203,7 +196,7 @@ public class TaskServiceProvider implements TaskService {
 
     @Override
     public List<Task> getUsersTask(int userId, UserType userType) {
-        List<Task> tasks = new ArrayList<>();
+        List<Task> tasks;
         try {
 
             if(!userType.hasViewAllTasksAndUsersPrivlage()) throw new Exception("no previlage");
@@ -219,6 +212,58 @@ public class TaskServiceProvider implements TaskService {
             logger.error("Error getting users task", ex.getMessage());
             return null;
         }
+    }
+
+    @Override
+    public List<Task> filterTasksByDueDate(String dueDate, UserType userType) {
+      // long date   =  Date.parse(dueDate);
+        List<Task> tasks;
+        try {
+           if (!userType.hasViewAllTasksAndUsersPrivlage())  throw  new Exception("error");
+
+           tasks = db.getTasksByDueDate(dueDate);
+           if(tasks == null || tasks.isEmpty())
+               throw new Exception("No tasks found");
+
+           return tasks;
+        }catch (Exception ex){
+            logger.error("{}{}Cant get Task By date", ex.getMessage(), ex.getCause());
+            return null;
+
+        }
+    }
+
+    @Override
+    public List<Task> filterById(String id , UserType userType) {
+        List<Task> tasks;
+        try {
+        int Id = Integer.parseInt(id);
+        tasks = db.getTaskById(Id);
+        }catch (Exception ex){
+            logger.error("{}{}Cant get Task By ID", ex.getMessage(), ex.getCause());
+            return null;
+        }
+        return tasks;
+    }
+
+    @Override
+    public List<Task> filterTasks(String category ,String  item , UserType role) {
+
+        switch (category){
+
+            case "id": filterById(item ,role);
+
+            case "name":
+              return   filterByName(item , role);
+            case "status":
+                return   filterByStatus(item , role);
+                case "priority":
+                    return   filterByPriority(item , role);
+                    case "duedate":
+                        return filterTasksByDueDate(item , role);
+
+        }
+        return null;
     }
 
 

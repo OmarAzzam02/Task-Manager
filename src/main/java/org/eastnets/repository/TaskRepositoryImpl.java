@@ -1,101 +1,25 @@
-package org.eastnets.databaseservice;
+package org.eastnets.repository;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.eastnets.entity.UserType;
-import org.eastnets.entity.User;
 import org.eastnets.entity.Task;
+import org.eastnets.entity.User;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
-
 
 @Repository
-public class DataBaseProvider implements DataBaseService {
-    private final static Logger logger = LogManager.getLogger(DataBaseProvider.class);
+public class TaskRepositoryImpl implements TaskRepository {
+    private final static Logger logger = LogManager.getLogger(TaskRepositoryImpl.class);
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("task-management");
-    EntityManager em = emf.createEntityManager();
+    EntityManager em  = emf.createEntityManager();
 
-    public DataBaseProvider() {
-    }
-
-
-    @Override
-    public List<User> getAllUsersFromDataBase() {
-        logger.info("getAllUsersFromDataBase");
-        List<User> users = new ArrayList<User>();
-        em.getTransaction().begin();
-        TypedQuery<User> query = em.createNamedQuery("User.findAll", User.class);
-        users = query.getResultList();
-        em.getTransaction().commit();
-        logger.info("Users Retrived {}" , users.size() );
-        return users;
-
-    }
-
-    @Override
-    public void addUser(User user) {
-
-
-        try {
-            logger.info("Adding user: {} To Database ", user.toString());
-            if (userIsRegistered(user.getUsername()))
-                throw new Exception("User is Already Registered");
-            em.getTransaction().begin();
-            em.persist(user);
-            em.getTransaction().commit();
-            logger.info("User added Successfully");
-
-        } catch (Exception ex) {
-            logger.error(ex.getMessage() + "   " + ex.getCause());
-        }
-    }
-
-    private boolean userIsRegistered(String username) {
-        em = emf.createEntityManager();
-        em.getTransaction().begin();
-        String sql = "SELECT u FROM User u WHERE u.username = :username";
-        TypedQuery<User> query = em.createQuery(sql, User.class);
-        query.setParameter("username", username);
-        List<User> users = query.getResultList();
-        return !users.isEmpty();
-    }
-
-
-
-    @Override
-    public User login(String enteredUsername, String enteredPassword) {
-        try {
-            logger.info("Attempting to log in to DB");
-            em.getTransaction().begin();
-
-
-            TypedQuery<User> query = em.createQuery(
-                    "SELECT u FROM User u WHERE u.username = :username AND u.password = :password", User.class);
-            query.setParameter("username", enteredUsername);
-            query.setParameter("password", enteredPassword);
-
-            User user = query.getSingleResult();
-
-            em.getTransaction().commit();
-            return user;
-
-        } catch (Exception ex) {
-            logger.error("No user found with the provided username and password. Cause: " + ex.getCause());
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback();
-            }
-            return null;
-        }
-    }
+    public TaskRepositoryImpl() {}
 
     @Override
     public void insertTask(Task task) {
@@ -110,7 +34,6 @@ public class DataBaseProvider implements DataBaseService {
                 em.getTransaction().rollback();
             logger.error("Error in inserting task", ex.getMessage());
         }
-
     }
 
     public void assignTask(Task task, User user) {
@@ -220,7 +143,7 @@ public class DataBaseProvider implements DataBaseService {
 
     }
 
-   public  List<User> getUsersByTaskId(int taskId){
+    public  List<User> getUsersByTaskId(int taskId){
         try {
             logger.info("Fetching users assigned to task ID: {}", taskId);
 
@@ -255,4 +178,34 @@ public class DataBaseProvider implements DataBaseService {
         }
     }
 
+    public List<Task> getTasksByDueDate(String dueDate) {
+
+        try {
+            logger.info("Attempting to get Tasks By due date in DB");
+            String jpql = "SELECT t FROM Task t WHERE t.dueDate = :dueDate";
+            TypedQuery<Task> query = em.createQuery(jpql, Task.class);
+            query.setParameter("dueDate", dueDate);
+            return query.getResultList();
+
+        }catch (Exception ex){
+            logger.error("error getting tasks By DueDate" + ex.getMessage() + "   " + ex.getCause());
+            return Collections.emptyList();
+        }
+    }
+
+    @Override
+    public List<Task> getTaskById(int id) {
+        try {
+        logger.info("Attempting to get Task by ID: {}", id);
+        String jpql = "SELECT t FROM Task t WHERE t.id = :id";
+        TypedQuery<Task> query = em.createQuery(jpql, Task.class);
+        query.setParameter("id", id);
+        return query.getResultList();
+
+        }catch (Exception ex){
+            logger.error("{}   {}", ex.getMessage(), ex.getCause());
+            return null;
+        }
+    }
 }
+

@@ -5,8 +5,8 @@ import org.eastnets.entity.UserType;
 
 import java.util.List;
 
-public interface UserService {
+public interface UserService{
     User signin(String username , String password );
-    void signup(User user );
+    void signup(User user);
     List<User> getAllUsers(UserType userType);
 }
