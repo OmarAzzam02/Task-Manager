@@ -1,6 +1,7 @@
 package org.eastnets.controller;
 
 
+import org.eastnets.dto.TaskRequestDTO;
 import org.eastnets.entity.Task;
 import org.eastnets.entity.UserType;
 import org.eastnets.service.TaskService;
@@ -24,9 +25,9 @@ public class TaskController{
 
 
     @PostMapping("/add-task")
-    public ResponseEntity<?> addTask(@RequestBody Task task  , @RequestParam UserType role) {
+    public ResponseEntity<?> addTask(@RequestBody TaskRequestDTO taskReq) {
         try {
-        taskService.addTask(task , role);
+        taskService.addTask(taskReq.getTask() , taskReq.getRole());
          return ResponseEntity.ok().body("Task added successfully");
         }catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -34,9 +35,9 @@ public class TaskController{
     }
 
     @PostMapping("/update-tasks")
-    public ResponseEntity<?> updateTasks(@RequestBody Task task  , @RequestParam UserType role) {
+    public ResponseEntity<?> updateTasks(@RequestBody TaskRequestDTO taskReq) {
         try {
-            taskService.updateTask(task , role );
+            taskService.updateTask(taskReq.getTask() ,  taskReq.getRole() );
             return ResponseEntity.ok().body("Task updated successfully");
         }catch (Exception ex){
             return ResponseEntity.badRequest().body(ex.getMessage());
@@ -44,10 +45,10 @@ public class TaskController{
     }
 
     @DeleteMapping("/delete-task")
-    public ResponseEntity<?> deleteTask(@RequestParam Task task  , @RequestParam UserType role) {
+    public ResponseEntity<?> deleteTask(@RequestBody TaskRequestDTO taskReq) {
 
         try {
-            taskService.deleteTask(task , role);
+            taskService.deleteTask(taskReq.getTask() ,  taskReq.getRole());
           return ResponseEntity.ok().body("Task deleted successfully");
         }catch (Exception ex){
             return ResponseEntity.badRequest().body(ex.getMessage());
@@ -55,9 +56,9 @@ public class TaskController{
     }
 
     @GetMapping("/search")
-    public ResponseEntity<?> searchTask(@RequestParam UserType role , @RequestParam String category , @RequestParam String item) {
+    public ResponseEntity<?> searchTask(@RequestBody TaskRequestDTO taskReq) {
 
-        List<Task> tasks =  taskService.filterTasks(category , item ,  role);
+        List<Task> tasks =  taskService.filterTasks(taskReq.getCategory(), taskReq.getItem() ,  taskReq.getRole());
         if (tasks!=null)
              return ResponseEntity.ok().body(tasks);
 

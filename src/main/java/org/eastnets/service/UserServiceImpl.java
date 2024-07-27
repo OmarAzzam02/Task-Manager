@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Autowired
-    UserServiceImpl(UserRepositoryImpl userRepositoryImpl ) {
+    public UserServiceImpl(UserRepositoryImpl userRepositoryImpl ) {
         db = userRepositoryImpl;
 
     }
@@ -30,8 +30,7 @@ public class UserServiceImpl implements UserService {
         try {
             logger.info("Attempting to signin user  {}", username);
             User user = db.login(username, password);
-            if (user == null)
-                logger.error("User not found", new Exception("Invalid username or password"));
+
 
             logger.info("user not null returning user");
             return user;

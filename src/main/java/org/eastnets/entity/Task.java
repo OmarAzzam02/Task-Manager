@@ -1,4 +1,5 @@
     package org.eastnets.entity;
+    import com.fasterxml.jackson.annotation.JsonBackReference;
     import org.apache.logging.log4j.LogManager;
     import org.apache.logging.log4j.Logger;
     import org.springframework.stereotype.Component;
@@ -31,12 +32,14 @@
         @Column(name = "DUE_DATE")
         @Temporal(TemporalType.DATE)
         private Date dueDate;
-        @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+        @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE } , fetch = FetchType.EAGER)
+
         @JoinTable(
                 name = "tasks_assigned",
                 joinColumns = @JoinColumn(name = "TASK_ID"),
                 inverseJoinColumns = @JoinColumn(name = "USER_ID")
         )
+        @JsonBackReference
         private List<User> assignedTo;
 
         public  Task() {}

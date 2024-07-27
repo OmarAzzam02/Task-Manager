@@ -1,4 +1,5 @@
 package org.eastnets.entity;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
@@ -27,11 +28,11 @@ public class User {
     private String password;
     @Column(name = "email" ,  nullable = false)
     private String email;
-    // todo
     @Enumerated(EnumType.STRING)
     @Column(name = "role"  , nullable = false)
     private UserType userType;
-    @ManyToMany(mappedBy = "assignedTo", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @ManyToMany(mappedBy = "assignedTo", cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
+    @JsonManagedReference
     private List<Task> tasksAssigned = new ArrayList<>();
 
     public User() {}
@@ -44,6 +45,15 @@ public class User {
         setUserType(userType);
         setTaskAssigned(tasks);
         logger.info("User created");
+    }
+
+
+    public User( String username, String password, String email, UserType userType) {
+        setUsername(username);
+        setPassword(password);
+        setEmail(email);
+        setUserType(userType);
+        logger.info("User created!");
     }
 
     public void setTaskAssigned(List<Task> tasks) {
