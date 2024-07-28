@@ -26,6 +26,10 @@ public enum UserType
             return true;
         }
 
+        @Override
+        public boolean hasUpdatePrivlage() {
+            return true;
+        }
 
     },
 
@@ -48,6 +52,10 @@ public enum UserType
             return true;
         }
 
+        @Override
+        public boolean hasUpdatePrivlage() {
+            return false;
+        }
 
         @Override
         public  boolean hasAssignPrivlage(){
@@ -81,6 +89,10 @@ public enum UserType
             return false;
         }
 
+        @Override
+        public boolean hasUpdatePrivlage() {
+            return false;
+        }
     };
 
     public  boolean hasViewOwnTasks(){
@@ -91,6 +103,7 @@ public enum UserType
     public abstract boolean hasEditPrivlage();
     public abstract boolean hasDeletePrivlage();
     public abstract boolean hasAssignPrivlage();
+    public abstract boolean hasUpdatePrivlage();
 
 
 

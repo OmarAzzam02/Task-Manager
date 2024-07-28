@@ -8,10 +8,10 @@ import org.eastnets.entity.UserType;
 import java.util.List;
 
 public interface TaskService {
-    void addTask(Task task, UserType userType) throws Exception;
-    void updateTask(Task task , UserType userType);
-    void deleteTask(Task task , UserType userType);
-    void assignTask(Task task, User use,UserType userType);
+    void addTask(Task task ) throws Exception;
+    void updateTask(Task task );
+    void deleteTask(Task task);
+    void assignTask(Task task, User user);
     List<Task> getAllTasks(UserType userType);
     List<Task> filterByName(String name , UserType userType);
     List<Task>filterByStatus(String state , UserType userType);

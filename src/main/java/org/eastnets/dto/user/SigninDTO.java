@@ -1,4 +1,4 @@
-package org.eastnets.dto;
+package org.eastnets.dto.user;
 
 public class SigninDTO {
 

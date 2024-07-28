@@ -1,5 +1,8 @@
 package org.eastnets.entity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
@@ -13,6 +16,7 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 @NamedQuery(name = "User.findAll" , query = "select u from User u")
+
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_ID_SEQ")
@@ -31,8 +35,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(name = "role"  , nullable = false)
     private UserType userType;
+
     @ManyToMany(mappedBy = "assignedTo", cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
-    @JsonManagedReference
     private List<Task> tasksAssigned = new ArrayList<>();
 
     public User() {}
@@ -53,6 +57,15 @@ public class User {
         setPassword(password);
         setEmail(email);
         setUserType(userType);
+        logger.info("User created!");
+    }
+
+    public User(int UserId ,String username, String password, String email, UserType userType) {
+        setUsername(username);
+        setPassword(password);
+        setEmail(email);
+        setUserType(userType);
+        setUserId(UserId);
         logger.info("User created!");
     }
 

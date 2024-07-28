@@ -27,24 +27,26 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void addTask(Task task, UserType userType) throws Exception {
+    public void addTask(Task task) throws Exception {
         try {
-            if (!userType.hasCreatePrivlage()) throw new Exception("you dont have privilege");
+            if (!task.getModifiedBy().getUserType().hasCreatePrivlage()) throw new Exception("you dont have privilege");
+
             db.insertTask(task);
             logger.info("TaskAdded");
 
         } catch (Exception e) {
-            logger.error("Error inserting task", e.getMessage());
+            e.printStackTrace();
+            logger.error("Error inserting task", e);
             throw new Exception("Error inserting task");
         }
 
     }
 
     @Override
-    public void updateTask(Task task, UserType userType) {
+    public void updateTask(Task task) {
 
         try {
-            if (!userType.hasCreatePrivlage()) throw new Exception("you dont have privilege");
+            if (!task.getModifiedBy().getUserType().hasCreatePrivlage()) throw new Exception("you dont have privilege");
             db.updateTask(task);
             logger.info("TaskUpdated");
         } catch (Exception e) {
@@ -56,10 +58,10 @@ public class TaskServiceImpl implements TaskService {
 
 
     @Override
-    public void deleteTask(Task task, UserType userType) {
+    public void deleteTask(Task task) {
 
         try {
-            if (!userType.hasCreatePrivlage()) throw new Exception("you dont have privilege");
+            if (!task.getModifiedBy().getUserType().hasCreatePrivlage()) throw new Exception("you dont have privilege");
             db.deleteTask(task);
             logger.info("Task Deleted");
         } catch (Exception e) {
@@ -68,9 +70,9 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void assignTask(Task task, User user, UserType userType) {
+    public void assignTask(Task task, User user) {
         try {
-            if (!userType.hasAssignPrivlage()) throw new Exception("you dont have the privlage");
+            if (!task.getModifiedBy().getUserType().hasAssignPrivlage()) throw new Exception("you dont have the privlage");
             db.assignTask(task, user);
             logger.info("TaskAssigned");
         } catch (Exception ex) {

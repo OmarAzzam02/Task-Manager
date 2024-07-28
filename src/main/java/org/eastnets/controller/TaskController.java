@@ -1,9 +1,11 @@
 package org.eastnets.controller;
 
 
-import org.eastnets.dto.TaskRequestDTO;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.eastnets.dto.task.TaskRequestDTO;
+import org.eastnets.dto.task.TaskSearchDTO;
 import org.eastnets.entity.Task;
-import org.eastnets.entity.UserType;
 import org.eastnets.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/tasks")
 public class TaskController{
-
+    private final static Logger logger = LogManager.getLogger(TaskController.class);
     private final TaskService taskService;
 
     @Autowired
@@ -22,22 +24,28 @@ public class TaskController{
         this.taskService = taskService;
     }
 
-
-
     @PostMapping("/add-task")
     public ResponseEntity<?> addTask(@RequestBody TaskRequestDTO taskReq) {
-        try {
-        taskService.addTask(taskReq.getTask() , taskReq.getRole());
+        try{
+
+            logger.info(" Adding task {} ",taskReq);
+
+            if(taskReq.getName() == null){
+                throw new Exception("Task is null");
+            }
+
+        taskService.addTask(new Task(taskReq.getName()  , taskReq.getDescription() , taskReq.getStatus(), taskReq.getPriority(),taskReq.getDueDate() , taskReq.getAssignedTo() , taskReq.getModifiedBy() ));
          return ResponseEntity.ok().body("Task added successfully");
         }catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(e.getMessage() + " "  + e.getCause());
         }
     }
 
     @PostMapping("/update-tasks")
     public ResponseEntity<?> updateTasks(@RequestBody TaskRequestDTO taskReq) {
         try {
-            taskService.updateTask(taskReq.getTask() ,  taskReq.getRole() );
+            taskService.updateTask(new Task(taskReq.getName()  , taskReq.getDescription() , taskReq.getStatus(), taskReq.getPriority(),taskReq.getDueDate() , taskReq.getAssignedTo() , taskReq.getModifiedBy() )  );
             return ResponseEntity.ok().body("Task updated successfully");
         }catch (Exception ex){
             return ResponseEntity.badRequest().body(ex.getMessage());
@@ -48,24 +56,23 @@ public class TaskController{
     public ResponseEntity<?> deleteTask(@RequestBody TaskRequestDTO taskReq) {
 
         try {
-            taskService.deleteTask(taskReq.getTask() ,  taskReq.getRole());
+            taskService.deleteTask(new Task(taskReq.getName()  , taskReq.getDescription() , taskReq.getStatus(), taskReq.getPriority(),taskReq.getDueDate() , taskReq.getAssignedTo() , taskReq.getModifiedBy() ));
           return ResponseEntity.ok().body("Task deleted successfully");
         }catch (Exception ex){
             return ResponseEntity.badRequest().body(ex.getMessage());
         }
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<?> searchTask(@RequestBody TaskRequestDTO taskReq) {
+   @GetMapping("/search")
+    public ResponseEntity<?> searchTask(@RequestBody TaskSearchDTO taskReq) {
 
-        List<Task> tasks =  taskService.filterTasks(taskReq.getCategory(), taskReq.getItem() ,  taskReq.getRole());
+       List<Task> tasks =  taskService.filterTasks(taskReq.getCategoryToSearch() , taskReq.getItemToSearch() , taskReq.getRole().getUserType());
         if (tasks!=null)
-             return ResponseEntity.ok().body(tasks);
+            return ResponseEntity.ok().body(" tasks found ");
 
         return ResponseEntity.badRequest().body("No tasks found");
 
     }
-
 
 
 

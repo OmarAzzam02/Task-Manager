@@ -3,8 +3,9 @@ package org.eastnets.controller;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.eastnets.dto.SigninDTO;
-import org.eastnets.dto.UserDTO;
+import org.eastnets.dto.user.SigninDTO;
+import org.eastnets.dto.user.UserManipulationDTO;
+import org.eastnets.dto.user.UserPrivilegeUpdateDTO;
 import org.eastnets.entity.User;
 import org.eastnets.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -26,7 +27,7 @@ public class UserController {
 
 
     @PostMapping(value = "/signup", consumes = "application/json")
-    public ResponseEntity<?> signup(@RequestBody UserDTO tempUser) {
+    public ResponseEntity<?> signup(@RequestBody UserManipulationDTO tempUser) {
         try {
             User user = new User(tempUser.getUsername() , tempUser.getPassword() , tempUser.getEmail() , tempUser.getUserType());
             logger.info("Received signup request: {}", user);
@@ -45,7 +46,7 @@ public class UserController {
 
             if(user != null){
              logger.info("User logged in successfully {} " , user.getUsername()  , user.getTasksAssigned() );
-             return ResponseEntity.ok().body(user);
+             return ResponseEntity.ok().body("Sign in Successfully ");
             }
 
             return ResponseEntity.badRequest().body("Invalid username or password");
@@ -53,13 +54,42 @@ public class UserController {
         }
 
 
-    @PostMapping("/home/users-list")
-    ResponseEntity<?> UsersList(@RequestBody UserDTO user) {
+    @PostMapping("/users-list")
+    ResponseEntity<?> UsersList(@RequestBody UserManipulationDTO user) {
         List<User> users= userService.getAllUsers(user.getUserType());
         if(users != null)
             return ResponseEntity.ok().body(users);
 
         return ResponseEntity.badRequest().body("No users found");
+
+    }
+
+    @PostMapping("/update")
+    ResponseEntity<?> updateUser(@RequestBody UserManipulationDTO tempUser) {
+        try {
+        User user = new User(tempUser.getUserId() , tempUser.getUsername() , tempUser.getPassword(),tempUser.getEmail() ,tempUser.getUserType() );
+         userService.updateUser(user);
+
+        return ResponseEntity.ok().body("User updated successfully");
+        }catch (Exception e){
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred could not update user");
+
+        }
+
+    }    @PostMapping("/update-privlage")
+    ResponseEntity<?> updateUserPrivilege(@RequestBody UserPrivilegeUpdateDTO tempUser) {
+        try {
+        User userToUpdate = new User(tempUser.getToUpdate().getUserId() , tempUser.getToUpdate().getUsername() , tempUser.getToUpdate().getPassword(),tempUser.getToUpdate().getEmail() ,tempUser.getToUpdate().getUserType() );
+        User userUpdateBy = new User(tempUser.getUpdatedBy().getUserId(), tempUser.getUpdatedBy().getUsername() , tempUser.getUpdatedBy().getPassword(),tempUser.getUpdatedBy().getEmail() ,tempUser.getUpdatedBy().getUserType() );
+         userService.updatePrivilege(userToUpdate , userUpdateBy.getUserType());
+
+        return ResponseEntity.ok().body("User updated successfully");
+        }catch (Exception e){
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred could not update user");
+
+        }
 
     }
 

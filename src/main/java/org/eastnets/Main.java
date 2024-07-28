@@ -2,12 +2,18 @@ package org.eastnets;
 
 import org.eastnets.config.AppConfig;
 import org.eastnets.controller.UserController;
+import org.eastnets.entity.Priority;
+import org.eastnets.entity.Task;
 import org.eastnets.entity.User;
 import org.eastnets.entity.UserType;
+import org.eastnets.repository.TaskRepositoryImpl;
 import org.eastnets.repository.UserRepositoryImpl;
+import org.eastnets.service.TaskServiceImpl;
 import org.eastnets.service.UserService;
 import org.eastnets.service.UserServiceImpl;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import java.util.Date;
 
 public class Main {
 
@@ -32,9 +38,27 @@ public class Main {
         }
 
         UserRepositoryImpl db  = new UserRepositoryImpl();
+        TaskRepositoryImpl db2 = new TaskRepositoryImpl();
         UserServiceImpl userService  = new UserServiceImpl(db);
-        User user1 =  userService.signin("Azzam" , "password1!");
-        System.out.println(user1.getUsername());
+        TaskServiceImpl taskService = new TaskServiceImpl(db2);
+        User user1 =  userService.signin("user1" , "password1");
+
+        Task task = new Task();
+        task.setName("check modidfied if works");
+        task.setDescription("Test description");
+        task.setStatus(false);
+        task.setPriority(Priority.HIGH);
+        task.setDueDate(new Date());
+        task.setModifiedBy(user1);
+        try {
+        taskService.addTask(task);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        System.out.println(task.getModifiedBy().getUsername());
+
 
     }
 }

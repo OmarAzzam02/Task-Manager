@@ -14,7 +14,7 @@
         </Root>
 
         <!-- Application Logger -->
-        <Logger name="org.eastnets.Main" level="debug" additivity="false">
+        <Logger name="org.eastnets.Main" level="info" additivity="false">
             <AppenderRef ref="File"/>
         </Logger>
     </Loggers>

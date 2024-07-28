@@ -42,6 +42,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void updateUser(User user) {
+        try {
+            logger.info("Attempting to update user  {}", user.getUsername());
+            db.update(user);
+            logger.info("user updated");
+        }catch (Exception e) {
+            logger.error( "in the update user {}", e.getMessage());
+        }
+    }
+
+    @Override
     public void signup(User user) {
         try {
             logger.info("Attempting to signup user {}", user.getUsername());
@@ -50,6 +61,19 @@ public class UserServiceImpl implements UserService {
         } catch (Exception ex) {
             logger.error("Error signing ", ex);
 
+        }
+    }
+
+    @Override
+    public void updatePrivilege(User user, UserType role) {
+        try {
+         logger.info("Attempting to update privilege user {}", user.getUsername());
+        if(!role.hasUpdatePrivlage()) throw new Exception("User Does not have update Type Privlage");
+
+        db.updatePrivlage(user);
+
+        }catch (Exception e){
+            logger.error("Error updating privilege user {}", user.getUsername());
         }
     }
 

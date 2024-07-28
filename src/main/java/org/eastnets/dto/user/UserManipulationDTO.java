@@ -1,24 +1,42 @@
-package org.eastnets.dto;
+package org.eastnets.dto.user;
 
 import org.eastnets.entity.UserType;
 
-public class UserDTO {
+public class UserManipulationDTO {
 
-
+    private int userId;
     private String username;
     private String password;
     private String email;
     private UserType userType;
 
-    public UserDTO() {}
+    public UserManipulationDTO() {}
 
-    public UserDTO(String username, String password, String email, UserType userType) {
+
+    public UserManipulationDTO(int userId, String username, String password, String email, UserType userType) {
+        this.userId = userId;
         this.username = username;
         this.password = password;
         this.email = email;
         this.userType = userType;
     }
 
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public UserManipulationDTO(int userId , String username, String password, String email) {
+        this.userId = userId;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+
+    }
     public String getUsername() {
         return username;
     }

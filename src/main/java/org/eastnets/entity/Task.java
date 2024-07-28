@@ -1,10 +1,15 @@
     package org.eastnets.entity;
     import com.fasterxml.jackson.annotation.JsonBackReference;
+    import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+    import com.fasterxml.jackson.annotation.JsonManagedReference;
+    import com.fasterxml.jackson.annotation.ObjectIdGenerators;
     import org.apache.logging.log4j.LogManager;
     import org.apache.logging.log4j.Logger;
     import org.springframework.stereotype.Component;
 
+    import javax.jws.soap.SOAPBinding;
     import javax.persistence.*;
+    import java.util.ArrayList;
     import java.util.Date;
     import java.util.List;
 
@@ -39,12 +44,22 @@
                 joinColumns = @JoinColumn(name = "TASK_ID"),
                 inverseJoinColumns = @JoinColumn(name = "USER_ID")
         )
-        @JsonBackReference
-        private List<User> assignedTo;
+        private List<User> assignedTo = new ArrayList<>();
+        @ManyToOne
+        @JoinColumn(name = "MODIFIED_BY", referencedColumnName = "USER_ID")
+        private User modifiedBy;
+
+        public User getModifiedBy() {
+            return modifiedBy;
+        }
+
+        public void setModifiedBy(User modifiedBy) {
+            this.modifiedBy = modifiedBy;
+        }
 
         public  Task() {}
 
-      public Task(int taskId, String name, String description, boolean status, Priority priority, Date dueDate , List<User> assignedTo) {
+      public Task(int taskId, String name, String description, boolean status, Priority priority, Date dueDate , List<User> assignedTo , User modifiedBy) {
             setTaskId(taskId);
             setName(name);
             setDescription(description);
@@ -52,18 +67,20 @@
             setPriority(priority);
             setDueDate(dueDate);
             setAssignedTo(assignedTo);
+            setModifiedBy(modifiedBy);
             logger.info("Task created in the first Constructor");
         }
 
 
 
-        public Task(String name, String description, boolean status, Priority priority, Date dueDate , List<User> assignedTo) {
+        public Task(String name, String description, boolean status, Priority priority, Date dueDate , List<User> assignedTo , User modifiedBy) {
             setName(name);
             setDescription(description);
             setStatus(status);
             setPriority(priority);
             setDueDate(dueDate);
             setAssignedTo(assignedTo);
+            setModifiedBy(modifiedBy);
             logger.info("Task created in the second Constructor");
         }
 

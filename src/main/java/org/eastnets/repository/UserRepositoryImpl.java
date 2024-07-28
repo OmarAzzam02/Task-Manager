@@ -41,6 +41,28 @@ public class UserRepositoryImpl implements UserRepository {
         }
     }
 
+    @Override
+    public void update(User user) {
+        EntityManager em = emf.createEntityManager();
+        logger.info("attempting to update User in DB");
+        try {
+            em.getTransaction().begin();
+            em.merge(user);
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            if (em.getTransaction().isActive())
+                em.getTransaction().rollback();
+            logger.error("{}   {}", ex.getMessage(), ex.getCause());
+        }
+
+    }
+
+    @Override
+    public void updatePrivlage(User user) {
+        update(user);
+
+    }
+
     public boolean userIsRegistered(String username, EntityManager em) {
         String sql = "SELECT u FROM User u WHERE u.username = :username";
         TypedQuery<User> query = em.createQuery(sql, User.class);
