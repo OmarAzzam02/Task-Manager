@@ -36,7 +36,7 @@ public class User {
     @Column(name = "role"  , nullable = false)
     private UserType userType;
 
-    @ManyToMany(mappedBy = "assignedTo", cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "assignedTo", cascade = { CascadeType.PERSIST, CascadeType.MERGE , CascadeType.REMOVE }, fetch = FetchType.EAGER)
     private List<Task> tasksAssigned = new ArrayList<>();
 
     public User() {}

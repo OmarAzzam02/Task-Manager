@@ -1,13 +1,6 @@
     package org.eastnets.entity;
-    import com.fasterxml.jackson.annotation.JsonBackReference;
-    import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-    import com.fasterxml.jackson.annotation.JsonManagedReference;
-    import com.fasterxml.jackson.annotation.ObjectIdGenerators;
     import org.apache.logging.log4j.LogManager;
     import org.apache.logging.log4j.Logger;
-    import org.springframework.stereotype.Component;
-
-    import javax.jws.soap.SOAPBinding;
     import javax.persistence.*;
     import java.util.ArrayList;
     import java.util.Date;
@@ -37,7 +30,7 @@
         @Column(name = "DUE_DATE")
         @Temporal(TemporalType.DATE)
         private Date dueDate;
-        @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE } , fetch = FetchType.EAGER)
+        @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE  ,  CascadeType.REMOVE} , fetch = FetchType.EAGER)
 
         @JoinTable(
                 name = "tasks_assigned",

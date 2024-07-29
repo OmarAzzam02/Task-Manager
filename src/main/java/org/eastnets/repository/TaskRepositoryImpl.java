@@ -2,6 +2,7 @@ package org.eastnets.repository;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.eastnets.entity.Priority;
 import org.eastnets.entity.Task;
 import org.eastnets.entity.User;
 import org.springframework.stereotype.Repository;
@@ -11,6 +12,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -69,13 +71,14 @@ public class TaskRepositoryImpl implements TaskRepository {
     }
 
     @Override
-    public void deleteTask(Task task) {
+    public void deleteTask(Task task1) {
         try {
+            Task task = em.find(Task.class , task1.getTaskId());
             logger.info("attempting to delete task in DB");
             em.getTransaction().begin();
             em.remove(task);
             em.getTransaction().commit();
-
+            logger.info("Task with ID: " + task.getTaskId() + " deleted successfully.");
             logger.debug("Task deleted");
         } catch (Exception ex) {
             if (em.getTransaction().isActive())
@@ -102,7 +105,7 @@ public class TaskRepositoryImpl implements TaskRepository {
             TypedQuery<Task> sql = em.createQuery("select t from Task t where t.name = :name", Task.class);
             sql.setParameter("name", name);
             List<Task> tasks = sql.getResultList();
-            logger.info(" # tasks found {} " ,  tasks.size());
+            logger.info(" # tasks found by name  {} " ,  tasks.size());
 
             return tasks;
         } catch (Exception ex) {
@@ -115,7 +118,7 @@ public class TaskRepositoryImpl implements TaskRepository {
     @Override
     public List<Task> getTasksByStatus(boolean status) {
         try {
-            logger.info("attempting to get tasks By name in DB");
+            logger.info("attempting to get tasks By Status in DB");
             TypedQuery<Task> sql = em.createQuery("select t from Task t where t.status = :status", Task.class);
             sql.setParameter("status", status);
             List<Task> tasks = sql.getResultList();
@@ -128,13 +131,13 @@ public class TaskRepositoryImpl implements TaskRepository {
     }
 
     @Override
-    public List<Task> getTasksByPriority(String priority) {
+    public List<Task> getTasksByPriority(Priority priority) {
         try {
-            logger.info("attempting to get tasks By name in DB");
+            logger.info("attempting to get tasks By Priority in DB");
             TypedQuery<Task> sql = em.createQuery("select t from Task t where t.priority = :priority", Task.class);
             sql.setParameter("priority", priority);
             List<Task> tasks = sql.getResultList();
-            logger.info(" # tasks found {} " ,  tasks.size());
+            logger.info(" #  tasks found {} " ,  tasks.size());
             return tasks;
         } catch (Exception ex) {
             logger.error(ex.getMessage() + "   " + ex.getCause());
@@ -178,10 +181,11 @@ public class TaskRepositoryImpl implements TaskRepository {
         }
     }
 
-    public List<Task> getTasksByDueDate(String dueDate) {
+    public List<Task> getTasksByDueDate(Date dueDate) {
 
         try {
-            logger.info("Attempting to get Tasks By due date in DB");
+
+            logger.info("Attempting to get Tasks By due date in DB {}  " , dueDate.toString() );
             String jpql = "SELECT t FROM Task t WHERE t.dueDate = :dueDate";
             TypedQuery<Task> query = em.createQuery(jpql, Task.class);
             query.setParameter("dueDate", dueDate);

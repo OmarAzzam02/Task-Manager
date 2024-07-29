@@ -5,16 +5,16 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
 @ComponentScan("org.eastnets")
-
+@EnableWebMvc
+@ComponentScan(basePackages="org.eastnets.*")
+@EnableJpaRepositories(basePackages = "org.eastnets.*")
 public class AppConfig {
 
-        @Bean
-        public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
-            return new MappingJackson2HttpMessageConverter(new ObjectMapper());
-        }
+
 
 
 }

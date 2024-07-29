@@ -25,6 +25,11 @@ public class UserController {
         this.userService = userService;
     }
 
+    @GetMapping("/home")
+    public String home() {
+        return "Welcome to the home page!";
+    }
+
 
     @PostMapping(value = "/signup", consumes = "application/json")
     public ResponseEntity<?> signup(@RequestBody UserManipulationDTO tempUser) {

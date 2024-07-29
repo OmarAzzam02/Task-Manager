@@ -7,7 +7,7 @@ import java.util.List;
 
 public class TaskRequestDTO {
 
-
+    private int taskId;
     private String name;
     private String description;
     private boolean status;
@@ -18,6 +18,13 @@ public class TaskRequestDTO {
 
     public TaskRequestDTO() {}
 
+    public int getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(int taskId) {
+        this.taskId = taskId;
+    }
     public List<User> getAssignedTo() {
         return assignedTo;
     }
@@ -26,7 +33,8 @@ public class TaskRequestDTO {
         this.assignedTo = assignedTo;
     }
 
-    public TaskRequestDTO(String name, String description, boolean status, Priority priority, Date dueDate, User modifiedBy , List<User>assignedTo ) {
+    public TaskRequestDTO(int taskId , String name, String description, boolean status, Priority priority, Date dueDate, User modifiedBy , List<User>assignedTo ) {
+        this.taskId = taskId;
         this.name = name;
         this.description = description;
         this.status = status;

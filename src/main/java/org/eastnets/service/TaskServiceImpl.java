@@ -1,11 +1,13 @@
 package org.eastnets.service;
 
 
+import org.eastnets.entity.Priority;
 import org.eastnets.repository.TaskRepositoryImpl;
 import org.eastnets.entity.Task;
 import org.eastnets.entity.User;
 import org.eastnets.entity.UserType;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -135,7 +137,6 @@ public class TaskServiceImpl implements TaskService {
         List<Task> tasks;
         try {
             if (!userType.hasViewOwnTasks()) throw new Exception("you dont have the previlage");
-
             tasks = db.getTasksByStatus(status);
 
             if (tasks == null || tasks.isEmpty())
@@ -150,14 +151,14 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<Task> filterByPriority(String priority, UserType userType) {
+    public List<Task> filterByPriority(String priorityStr, UserType userType) {
         logger.info("Getting Tasks By Priority  ....");
         List<Task> tasks;
         try {
             if (!userType.hasViewOwnTasks()) throw new Exception("you dont have the previlage");
-
+            Priority priority = Priority.valueOf(priorityStr);
             tasks = db.getTasksByPriority(priority);
-
+            logger.info(  " tasks from db extracted  {} "   , tasks.size());
             if (tasks == null || tasks.isEmpty())
                 throw new Exception("No tasks found");
 
@@ -218,12 +219,14 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public List<Task> filterTasksByDueDate(String dueDate, UserType userType) {
-      // long date   =  Date.parse(dueDate);
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yy");
         List<Task> tasks;
         try {
+            Date due = formatter.parse(dueDate);
            if (!userType.hasViewAllTasksAndUsersPrivlage())  throw  new Exception("error");
 
-           tasks = db.getTasksByDueDate(dueDate);
+           tasks = db.getTasksByDueDate(due);
            if(tasks == null || tasks.isEmpty())
                throw new Exception("No tasks found");
 
@@ -240,6 +243,7 @@ public class TaskServiceImpl implements TaskService {
         List<Task> tasks;
         try {
         int Id = Integer.parseInt(id);
+        logger.info("trying to get the task with id {}" , Id );
         tasks = db.getTaskById(Id);
         }catch (Exception ex){
             logger.error("{}{}Cant get Task By ID", ex.getMessage(), ex.getCause());
@@ -251,22 +255,18 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<Task> filterTasks(String category ,String  item , UserType role) {
 
+
         switch (category){
-
-            case "id": filterById(item ,role);
-
-            case "name":
-              return   filterByName(item , role);
-            case "status":
-                return   filterByStatus(item , role);
-                case "priority":
-                    return   filterByPriority(item , role);
-                    case "duedate":
-                        return filterTasksByDueDate(item , role);
-
+            case "id": return filterById(item ,role);
+                 case "name":
+                      return   filterByName(item , role);
+                      case "status":
+                                return   filterByStatus(item , role);
+                          case "priority":
+                                      return   filterByPriority(item , role);
+                                       case "duedate":
+                                             return filterTasksByDueDate(item , role);
         }
         return null;
     }
-
-
 }

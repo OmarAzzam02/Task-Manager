@@ -56,7 +56,8 @@ public class TaskController{
     public ResponseEntity<?> deleteTask(@RequestBody TaskRequestDTO taskReq) {
 
         try {
-            taskService.deleteTask(new Task(taskReq.getName()  , taskReq.getDescription() , taskReq.getStatus(), taskReq.getPriority(),taskReq.getDueDate() , taskReq.getAssignedTo() , taskReq.getModifiedBy() ));
+
+            taskService.deleteTask(new Task(taskReq.getTaskId() , taskReq.getName()  , taskReq.getDescription() , taskReq.getStatus(), taskReq.getPriority(),taskReq.getDueDate() , taskReq.getAssignedTo() , taskReq.getModifiedBy() ));
           return ResponseEntity.ok().body("Task deleted successfully");
         }catch (Exception ex){
             return ResponseEntity.badRequest().body(ex.getMessage());
@@ -68,7 +69,7 @@ public class TaskController{
 
        List<Task> tasks =  taskService.filterTasks(taskReq.getCategoryToSearch() , taskReq.getItemToSearch() , taskReq.getRole().getUserType());
         if (tasks!=null)
-            return ResponseEntity.ok().body(" tasks found ");
+            return ResponseEntity.ok().body(tasks.size());
 
         return ResponseEntity.badRequest().body("No tasks found");
 
