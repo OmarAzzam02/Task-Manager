@@ -2,7 +2,8 @@ package org.eastnets.service;
 
 
 import org.eastnets.entity.Priority;
-import org.eastnets.repository.TaskRepositoryImpl;
+import org.eastnets.dao.TaskDAO;
+
 import org.eastnets.entity.Task;
 import org.eastnets.entity.User;
 import org.eastnets.entity.UserType;
@@ -11,31 +12,33 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 
 @Service
 public class TaskServiceImpl implements TaskService {
     private final static Logger logger = LogManager.getLogger(TaskServiceImpl.class);
 
-    private final TaskRepositoryImpl  db;
+
+    private final TaskDAO db;
 
 
 
-
-    @Autowired
-   public TaskServiceImpl(TaskRepositoryImpl taskRepository){
+   public TaskServiceImpl(TaskDAO taskRepository){
         db = taskRepository;
     }
 
     @Override
+    @Transactional
     public void addTask(Task task) throws Exception {
         try {
             if (!task.getModifiedBy().getUserType().hasCreatePrivlage()) throw new Exception("you dont have privilege");
 
-            db.insertTask(task);
-            logger.info("TaskAdded");
 
+            // Save the task
+            db.save(task);
+            logger.info("Task added");
         } catch (Exception e) {
             e.printStackTrace();
             logger.error("Error inserting task", e);
@@ -49,7 +52,8 @@ public class TaskServiceImpl implements TaskService {
 
         try {
             if (!task.getModifiedBy().getUserType().hasCreatePrivlage()) throw new Exception("you dont have privilege");
-            db.updateTask(task);
+            //TODO
+            db.save(task);
             logger.info("TaskUpdated");
         } catch (Exception e) {
             logger.error("Error updating  task", e.getMessage());
@@ -64,7 +68,7 @@ public class TaskServiceImpl implements TaskService {
 
         try {
             if (!task.getModifiedBy().getUserType().hasCreatePrivlage()) throw new Exception("you dont have privilege");
-            db.deleteTask(task);
+            db.delete(task);
             logger.info("Task Deleted");
         } catch (Exception e) {
             logger.error("Error Deleting  task", e.getMessage());
@@ -75,7 +79,7 @@ public class TaskServiceImpl implements TaskService {
     public void assignTask(Task task, User user) {
         try {
             if (!task.getModifiedBy().getUserType().hasAssignPrivlage()) throw new Exception("you dont have the privlage");
-            db.assignTask(task, user);
+           // db.assignTask(task, user);
             logger.info("TaskAssigned");
         } catch (Exception ex) {
             logger.error("Error assigning task", ex.getMessage());
@@ -91,9 +95,9 @@ public class TaskServiceImpl implements TaskService {
             List<Task> tasks;
             if (!userType.hasViewAllTasksAndUsersPrivlage()) throw new Exception("You dont have  previlage");
 
-            tasks = db.getAllTasksFromDB();
+            tasks = db.findAll();
 
-            if (tasks == null || tasks.isEmpty())
+            if (tasks.isEmpty())
                 throw new Exception("No tasks found");
 
 
@@ -114,7 +118,7 @@ public class TaskServiceImpl implements TaskService {
         try {
             if (!userType.hasViewOwnTasks()) throw new Exception("you dont have the previlage");
 
-            tasks = db.getTasksByName(name);
+            tasks = db.findByName(name);
 
             if (tasks == null || tasks.isEmpty())
                 throw new Exception("No tasks found");
@@ -137,7 +141,7 @@ public class TaskServiceImpl implements TaskService {
         List<Task> tasks;
         try {
             if (!userType.hasViewOwnTasks()) throw new Exception("you dont have the previlage");
-            tasks = db.getTasksByStatus(status);
+            tasks = db.findByStatus(status);
 
             if (tasks == null || tasks.isEmpty())
                 throw new Exception("No tasks found");
@@ -157,7 +161,7 @@ public class TaskServiceImpl implements TaskService {
         try {
             if (!userType.hasViewOwnTasks()) throw new Exception("you dont have the previlage");
             Priority priority = Priority.valueOf(priorityStr);
-            tasks = db.getTasksByPriority(priority);
+            tasks = db.findByPriority(priority);
             logger.info(  " tasks from db extracted  {} "   , tasks.size());
             if (tasks == null || tasks.isEmpty())
                 throw new Exception("No tasks found");
@@ -180,7 +184,7 @@ public class TaskServiceImpl implements TaskService {
             logger.info("Getting Users By Task Id....");
             if (!userType.hasViewAllTasksAndUsersPrivlage()) throw new Exception("no previlage");
 
-            users = db.getUsersByTaskId(taskId);
+            users = db.findUsersByTaskId(taskId);
 
             if(users == null || users.isEmpty())
                 throw new Exception("No users found");
@@ -204,7 +208,7 @@ public class TaskServiceImpl implements TaskService {
 
             if(!userType.hasViewAllTasksAndUsersPrivlage()) throw new Exception("no previlage");
 
-            tasks = db.getTasksByUserId(userId);
+            tasks = db.findTaskByUserId(userId);
             if (tasks == null || tasks.isEmpty())
                 throw new Exception("No tasks found");
 
@@ -226,7 +230,7 @@ public class TaskServiceImpl implements TaskService {
             Date due = formatter.parse(dueDate);
            if (!userType.hasViewAllTasksAndUsersPrivlage())  throw  new Exception("error");
 
-           tasks = db.getTasksByDueDate(due);
+           tasks = db.findByDueDate(due);
            if(tasks == null || tasks.isEmpty())
                throw new Exception("No tasks found");
 
@@ -239,17 +243,22 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<Task> filterById(String id , UserType userType) {
-        List<Task> tasks;
+    public List<Task> filterById(String id) {
+        Optional<Task> tasks;
         try {
-        int Id = Integer.parseInt(id);
+        Integer Id = Integer.parseInt(id);
         logger.info("trying to get the task with id {}" , Id );
-        tasks = db.getTaskById(Id);
+        tasks = db.findById(Id);
+        if (!tasks.isPresent())
+             throw new Exception("No task found");
+
+        return Collections.singletonList(tasks.get());
+
         }catch (Exception ex){
             logger.error("{}{}Cant get Task By ID", ex.getMessage(), ex.getCause());
-            return null;
+            return Collections.emptyList();
         }
-        return tasks;
+
     }
 
     @Override
@@ -257,7 +266,7 @@ public class TaskServiceImpl implements TaskService {
 
 
         switch (category){
-            case "id": return filterById(item ,role);
+            case "id": return filterById(item);
                  case "name":
                       return   filterByName(item , role);
                       case "status":

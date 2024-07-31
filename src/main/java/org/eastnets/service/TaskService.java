@@ -20,5 +20,5 @@ public interface TaskService {
     List<Task> getUsersTask(int userId , UserType userType);
     List<Task> filterTasksByDueDate(String dueDate, UserType userType);
     List<Task> filterTasks(String category ,String item , UserType role);
-     List<Task> filterById(String item ,UserType role);
+    List<Task> filterById(String item);
 }

@@ -16,7 +16,6 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 @NamedQuery(name = "User.findAll" , query = "select u from User u")
-
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_ID_SEQ")
@@ -36,7 +35,7 @@ public class User {
     @Column(name = "role"  , nullable = false)
     private UserType userType;
 
-    @ManyToMany(mappedBy = "assignedTo", cascade = { CascadeType.PERSIST, CascadeType.MERGE , CascadeType.REMOVE }, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "assignedTo"  , fetch = FetchType.EAGER)
     private List<Task> tasksAssigned = new ArrayList<>();
 
     public User() {}

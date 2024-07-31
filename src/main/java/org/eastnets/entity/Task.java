@@ -30,25 +30,22 @@
         @Column(name = "DUE_DATE")
         @Temporal(TemporalType.DATE)
         private Date dueDate;
-        @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE  ,  CascadeType.REMOVE} , fetch = FetchType.EAGER)
 
+        @ManyToMany( fetch = FetchType.EAGER)
         @JoinTable(
                 name = "tasks_assigned",
                 joinColumns = @JoinColumn(name = "TASK_ID"),
                 inverseJoinColumns = @JoinColumn(name = "USER_ID")
         )
         private List<User> assignedTo = new ArrayList<>();
-        @ManyToOne
+
+
+
+        @ManyToOne()
         @JoinColumn(name = "MODIFIED_BY", referencedColumnName = "USER_ID")
         private User modifiedBy;
 
-        public User getModifiedBy() {
-            return modifiedBy;
-        }
 
-        public void setModifiedBy(User modifiedBy) {
-            this.modifiedBy = modifiedBy;
-        }
 
         public  Task() {}
 
@@ -141,5 +138,12 @@
             this.assignedTo  = assignedTo;
         }
 
+        public User getModifiedBy() {
+            return modifiedBy;
+        }
+
+        public void setModifiedBy(User modifiedBy) {
+            this.modifiedBy = modifiedBy;
+        }
 
     }

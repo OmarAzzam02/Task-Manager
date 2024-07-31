@@ -62,8 +62,9 @@ public class UserController {
     @PostMapping("/users-list")
     ResponseEntity<?> UsersList(@RequestBody UserManipulationDTO user) {
         List<User> users= userService.getAllUsers(user.getUserType());
+
         if(users != null)
-            return ResponseEntity.ok().body(users);
+            return ResponseEntity.ok().body("users found ");
 
         return ResponseEntity.badRequest().body("No users found");
 
