@@ -79,7 +79,7 @@ public class TaskServiceImpl implements TaskService {
      * </p>
      *
      * @param task the task to be deleted
-     * @throws Exception if the user does not have the privilege to delete tasks
+     * @throws Error if the user does not have the privilege to delete tasks
      */
     @Override
     @Transactional
@@ -103,7 +103,6 @@ public class TaskServiceImpl implements TaskService {
      *
      * @param task the task to be assigned
      * @param user the user to be assigned to the task
-     * @throws Exception if the user does not have the privilege to assign tasks or is already assigned
      */
     @Override
     public void assignTask(Task task, User user) {
@@ -258,7 +257,7 @@ public class TaskServiceImpl implements TaskService {
                 throw new Exception("No tasks found");
             log.info("Tasks retrieved count: {}", tasks.size());
         } catch (Exception ex) {
-            log.error("Error getting user's tasks", ex.getMessage());
+            log.error("Error getting user's tasks", ex.getMessage() , ex);
             return null;
         }
         return tasks;

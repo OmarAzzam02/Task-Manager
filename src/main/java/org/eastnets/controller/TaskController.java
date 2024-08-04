@@ -118,7 +118,7 @@ public class TaskController {
      * @return a {@link ResponseEntity} with the number of tasks found or an error message
      */
     @GetMapping("/tasks")
-    public ResponseEntity<?> getTasks(UserInfoDTO user) {
+    public ResponseEntity<?> getTasks( @RequestBody  UserInfoDTO user) {
         try {
             log.info("Getting user's tasks");
             List<Task> tasks = taskService.getUsersTask(user.getUserId());

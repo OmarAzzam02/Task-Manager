@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN">
     <Appenders>
-        <!-- Relative Path File Appender -->
+        <!-- Console Appender for All Log Levels -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+
+        <!-- File Appender for All Log Levels -->
         <File name="File" fileName="logs/app.log">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </File>
@@ -10,11 +15,13 @@
     <Loggers>
         <!-- Root Logger -->
         <Root level="info">
+            <AppenderRef ref="Console"/>
             <AppenderRef ref="File"/>
         </Root>
 
         <!-- Application Logger -->
-        <Logger name="org.eastnets.Main" level="info" additivity="false">
+        <Logger name="org.eastnets" level="info" additivity="false">
+            <AppenderRef ref="Console"/>
             <AppenderRef ref="File"/>
         </Logger>
     </Loggers>
