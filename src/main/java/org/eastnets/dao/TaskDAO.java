@@ -11,24 +11,70 @@ import org.springframework.stereotype.Repository;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Data Access Object (DAO) interface for performing CRUD operations on {@link Task} entities.
+ * <p>
+ * This interface extends {@link JpaRepository} to provide standard CRUD operations and custom queries
+ * for {@link Task} entities. It includes methods to find tasks by various attributes and relationships.
+ */
 @Repository
 public interface TaskDAO extends JpaRepository<Task, Integer> {
 
-    @Query("SELECT t FROM Task t WHERE t.name = :name")
+    /**
+     * Finds tasks by their name.
+     *
+     * @param name the name of the task.
+     * @return a list of tasks with the specified name.
+     */
     List<Task> findByName(@Param("name") String name);
 
-    @Query("SELECT t FROM Task t WHERE t.status = :status")
-    List<Task> findByStatus(@Param("status") boolean status);
+    /**
+     * Finds tasks by their ID.
+     *
+     * @param taskId the ID of the task.
+     * @return a list of tasks with the specified ID.
+     */
+    List<Task> findById(int taskId);
 
-    @Query("SELECT t FROM Task t WHERE t.priority = :priority")
-    List<Task> findByPriority(@Param("priority") Priority priority);
+    /**
+     * Finds tasks by their status.
+     *
+     * @param status the status of the tasks.
+     * @return a list of tasks with the specified status.
+     */
+    List<Task> findByStatus(boolean status);
 
-    @Query("SELECT t FROM Task t WHERE t.dueDate = :dueDate")
-    List<Task> findByDueDate(@Param("dueDate") Date dueDate);
+    /**
+     * Finds tasks by their priority.
+     *
+     * @param priority the priority of the tasks.
+     * @return a list of tasks with the specified priority.
+     */
+    List<Task> findByPriority(Priority priority);
 
+    /**
+     * Finds tasks by their due date.
+     *
+     * @param dueDate the due date of the tasks.
+     * @return a list of tasks with the specified due date.
+     */
+    List<Task> findByDueDate(Date dueDate);
+
+    /**
+     * Finds tasks assigned to a user by the user's ID.
+     *
+     * @param userId the ID of the user.
+     * @return a list of tasks assigned to the user with the specified ID.
+     */
     @Query("SELECT t FROM Task t JOIN t.assignedTo u WHERE u.userId = :userId")
     List<Task> findTaskByUserId(@Param("userId") int userId);
 
+    /**
+     * Finds users assigned to a task by the task's ID.
+     *
+     * @param taskId the ID of the task.
+     * @return a list of users assigned to the task with the specified ID.
+     */
     @Query("SELECT u FROM User u JOIN u.tasksAssigned t WHERE t.taskId = :taskId")
     List<User> findUsersByTaskId(@Param("taskId") int taskId);
 }

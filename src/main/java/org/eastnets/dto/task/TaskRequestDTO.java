@@ -1,94 +1,70 @@
 package org.eastnets.dto.task;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.eastnets.entity.Priority;
 import org.eastnets.entity.User;
+
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Data Transfer Object (DTO) for transferring task request information.
+ * <p>
+ * This class is used to encapsulate the details of a task request, including its ID, name, description,
+ * status, priority, due date, the user who modified the task, and the list of users assigned to the task.
+ * </p>
+ */
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class TaskRequestDTO {
 
+    /**
+     * The unique identifier for the task.
+     */
     private int taskId;
+
+    /**
+     * The name of the task.
+     */
     private String name;
+
+    /**
+     * A description of the task.
+     */
     private String description;
+
+    /**
+     * The completion status of the task.
+     * <p>
+     * {@code true} if the task is complete, {@code false} otherwise.
+     * </p>
+     */
     private boolean status;
+
+    /**
+     * The priority level of the task.
+     */
     private Priority priority;
+
+    /**
+     * The due date for the task.
+     */
     private Date dueDate;
+
+    /**
+     * The user who last modified the task.
+     */
     private User modifiedBy;
+
+    /**
+     * A list of users assigned to the task.
+     */
     private List<User> assignedTo;
-
-    public TaskRequestDTO() {}
-
-    public int getTaskId() {
-        return taskId;
-    }
-
-    public void setTaskId(int taskId) {
-        this.taskId = taskId;
-    }
-    public List<User> getAssignedTo() {
-        return assignedTo;
-    }
-
-    public void setAssignedTo(List<User> assignedTo) {
-        this.assignedTo = assignedTo;
-    }
-
-    public TaskRequestDTO(int taskId , String name, String description, boolean status, Priority priority, Date dueDate, User modifiedBy , List<User>assignedTo ) {
-        this.taskId = taskId;
-        this.name = name;
-        this.description = description;
-        this.status = status;
-        this.priority = priority;
-        this.dueDate = dueDate;
-        this.modifiedBy = modifiedBy;
-        this.assignedTo = assignedTo;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public boolean getStatus() {
         return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-    public Priority getPriority() {
-        return priority;
-    }
-
-    public void setPriority(Priority priority) {
-        this.priority = priority;
-    }
-
-    public Date getDueDate() {
-        return dueDate;
-    }
-
-    public void setDueDate(Date dueDate) {
-        this.dueDate = dueDate;
-    }
-
-    public User getModifiedBy() {
-        return modifiedBy;
-    }
-
-    public void setModifiedBy(User modifiedBy) {
-        this.modifiedBy = modifiedBy;
     }
 }

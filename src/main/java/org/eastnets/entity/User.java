@@ -1,120 +1,106 @@
 package org.eastnets.entity;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import lombok.*;
+import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
-
+/**
+ * Represents a User entity in the system.
+ * <p>
+ * A user is an individual who can have tasks assigned to them. This class
+ * includes details such as username, password, email, and user type.
+ * </p>
+ */
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Log4j2
+@Data
 @Table(name = "users")
-@NamedQuery(name = "User.findAll" , query = "select u from User u")
+@NamedQuery(name = "User.findAll", query = "select u from User u")
 public class User {
+
+    /**
+     * Unique identifier for the user.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_ID_SEQ")
     @SequenceGenerator(name = "USER_ID_SEQ", sequenceName = "USER_ID_SEQ", allocationSize = 1)
     @Column(name = "USER_ID")
     private int userId;
 
-    @Transient
-    private final static Logger logger = LogManager.getLogger(User.class);
-    @Column(name = "username",  nullable = false)
+    /**
+     * Username of the user.
+     * Must not be null.
+     */
+    @Column(name = "username", nullable = false)
     private String username;
-    @Column(name = "password" ,  nullable = false)
+
+    /**
+     * Password of the user.
+     * Must not be null.
+     */
+    @Column(name = "password", nullable = false)
     private String password;
-    @Column(name = "email" ,  nullable = false)
+
+    /**
+     * Email address of the user.
+     * Must not be null.
+     */
+    @Column(name = "email", nullable = false)
     private String email;
+
+    /**
+     * Type of user role.
+     * Must not be null.
+     */
     @Enumerated(EnumType.STRING)
-    @Column(name = "role"  , nullable = false)
+    @Column(name = "role", nullable = false)
     private UserType userType;
 
-    @ManyToMany(mappedBy = "assignedTo"  , fetch = FetchType.EAGER)
+    /**
+     * List of tasks assigned to this user.
+     * Eagerly fetched from the database.
+     */
+    @ManyToMany(mappedBy = "assignedTo", fetch = FetchType.EAGER)
     private List<Task> tasksAssigned = new ArrayList<>();
 
-    public User() {}
+    /**
+     * Constructs a new User with the specified details.
+     *
+     * @param username the username of the user
+     * @param password the password of the user
+     * @param email the email address of the user
+     * @param userType the type of user role
+     */
+    public User(String username, String password, String email, UserType userType) {
+        setUsername(username);
+        setPassword(password);
+        setEmail(email);
+        setUserType(userType);
+        log.info("User created!");
+    }
 
-    public User(int userId, String username, String password, String email, UserType userType , List<Task> tasks) {
+    /**
+     * Constructs a new User with the specified details, including an ID.
+     *
+     * @param userId the unique identifier for the user
+     * @param username the username of the user
+     * @param password the password of the user
+     * @param email the email address of the user
+     * @param userType the type of user role
+     */
+    public User(int userId, String username, String password, String email, UserType userType) {
         setUserId(userId);
         setUsername(username);
         setPassword(password);
         setEmail(email);
         setUserType(userType);
-        setTaskAssigned(tasks);
-        logger.info("User created");
+        log.info("User created!");
     }
-
-
-    public User( String username, String password, String email, UserType userType) {
-        setUsername(username);
-        setPassword(password);
-        setEmail(email);
-        setUserType(userType);
-        logger.info("User created!");
-    }
-
-    public User(int UserId ,String username, String password, String email, UserType userType) {
-        setUsername(username);
-        setPassword(password);
-        setEmail(email);
-        setUserType(userType);
-        setUserId(UserId);
-        logger.info("User created!");
-    }
-
-    public void setTaskAssigned(List<Task> tasks) {
-        this.tasksAssigned = tasks;
-    }
-
-    public List<Task> getTasksAssigned() {
-        return tasksAssigned;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public UserType getUserType() {
-        return userType;
-    }
-
-    public void setUserType(UserType userType) {
-        this.userType = userType;
-    }
-
-
 }
